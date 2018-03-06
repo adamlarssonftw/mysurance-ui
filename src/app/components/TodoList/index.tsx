@@ -13,7 +13,7 @@ export namespace TodoList {
 
 export class TodoList extends React.Component<TodoList.Props> {
   renderToggleAll(): JSX.Element | void {
-    const { todos, actions } = this.props;
+    const { todos } = this.props;
     if (todos.length > 0) {
       const hasIncompleted = todos.some((todo) => !todo.completed);
       return (
@@ -21,7 +21,6 @@ export class TodoList extends React.Component<TodoList.Props> {
           className={style.toggleAll}
           type="checkbox"
           checked={hasIncompleted}
-          onChange={actions.completeAll}
         />
       );
     }
@@ -37,7 +36,6 @@ export class TodoList extends React.Component<TodoList.Props> {
             <TodoItem
               key={todo.id}
               todo={todo}
-              completeTodo={actions.completeTodo}
               deleteTodo={actions.deleteTodo}
               editTodo={actions.editTodo}
             />

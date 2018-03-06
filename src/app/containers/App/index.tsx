@@ -16,7 +16,6 @@ const FILTER_VALUES = (Object.keys(TodoModel.Filter) as (keyof typeof TodoModel.
 const FILTER_FUNCTIONS: Record<TodoModel.Filter, (todo: TodoModel) => boolean> = {
   [TodoModel.Filter.SHOW_ALL]: () => true,
   [TodoModel.Filter.SHOW_ACTIVE]: (todo) => !todo.completed,
-  [TodoModel.Filter.SHOW_COMPLETED]: (todo) => todo.completed
 };
 
 export namespace App {
@@ -44,26 +43,11 @@ export class App extends React.Component<App.Props> {
 
   constructor(props: App.Props, context?: any) {
     super(props, context);
-    this.handleClearCompleted = this.handleClearCompleted.bind(this);
-    this.handleFilterChange = this.handleFilterChange.bind(this);
-  }
-
-  handleClearCompleted(): void {
-    const hasCompletedTodo = this.props.todos.some((todo) => todo.completed || false);
-    if (hasCompletedTodo) {
-      this.props.actions.clearCompleted();
-    }
-  }
-
-  handleFilterChange(filter: TodoModel.Filter): void {
-    this.props.history.push(`#${filter}`);
   }
 
   render() {
     const { todos, actions, filter } = this.props;
-    const activeCount = todos.length - todos.filter((todo) => todo.completed).length;
     const filteredTodos = filter ? todos.filter(FILTER_FUNCTIONS[filter]) : todos;
-    const completedCount = todos.reduce((count, todo) => (todo.completed ? count + 1 : count), 0);
 
     return (
       <div className={style.normal}>
