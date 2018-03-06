@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import * as style from './style.css';
 
-export namespace TodoTextInput {
+export namespace TextInput {
   export interface Props {
     text?: string;
     placeholder?: string;
-    newTodo?: boolean;
+    newInsurance?: boolean;
     editing?: boolean;
     onSave: (text: string) => void;
   }
@@ -16,8 +16,8 @@ export namespace TodoTextInput {
   }
 }
 
-export class TodoTextInput extends React.Component<TodoTextInput.Props, TodoTextInput.State> {
-  constructor(props: TodoTextInput.Props, context?: any) {
+export class TextInput extends React.Component<TextInput.Props, TextInput.State> {
+  constructor(props: TextInput.Props, context?: any) {
     super(props, context);
     this.state = { text: this.props.text || '' };
     this.handleBlur = this.handleBlur.bind(this);
@@ -29,7 +29,7 @@ export class TodoTextInput extends React.Component<TodoTextInput.Props, TodoText
     const text = event.currentTarget.value.trim();
     if (event.which === 13) {
       this.props.onSave(text);
-      if (this.props.newTodo) {
+      if (this.props.newInsurance) {
         this.setState({ text: '' });
       }
     }
@@ -41,7 +41,7 @@ export class TodoTextInput extends React.Component<TodoTextInput.Props, TodoText
 
   handleBlur(event: React.FocusEvent<HTMLInputElement>) {
     const text = event.target.value.trim();
-    if (!this.props.newTodo) {
+    if (!this.props.newInsurance) {
       this.props.onSave(text);
     }
   }
@@ -50,7 +50,7 @@ export class TodoTextInput extends React.Component<TodoTextInput.Props, TodoText
     const classes = classNames(
       {
         [style.edit]: this.props.editing,
-        [style.new]: this.props.newTodo
+        [style.new]: this.props.newInsurance
       },
       style.normal
     );
