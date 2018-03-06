@@ -41,17 +41,6 @@ export const todoReducer = handleActions<RootState.TodoState, TodoModel>(
         }
       });
     },
-    [TodoActions.Type.COMPLETE_TODO]: (state, action) => {
-      return state.map(
-        (todo) => (todo.id === (action.payload as any) ? { ...todo, completed: !todo.completed } : todo)
-      );
-    },
-    [TodoActions.Type.COMPLETE_ALL]: (state, action) => {
-      return state.map((todo) => ({ ...todo, completed: true }));
-    },
-    [TodoActions.Type.CLEAR_COMPLETED]: (state, action) => {
-      return state.filter((todo) => todo.completed === false);
-    }
   },
   initialState
 );

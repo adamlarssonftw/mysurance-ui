@@ -68,11 +68,6 @@
   transition: color 0.4s;
 }
 
-.normal li.completed label {
-  color: #d9d9d9;
-  text-decoration: line-through;
-}
-
 .normal li .destroy {
   display: none;
   position: absolute;

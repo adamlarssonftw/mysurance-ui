@@ -10,7 +10,6 @@ export namespace TodoItem {
     todo: TodoModel;
     editTodo: typeof TodoActions.editTodo;
     deleteTodo: typeof TodoActions.deleteTodo;
-    completeTodo: typeof TodoActions.completeTodo;
   }
 
   export interface State {
@@ -38,7 +37,7 @@ export class TodoItem extends React.Component<TodoItem.Props, TodoItem.State> {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props;
+    const { todo, deleteTodo } = this.props;
 
     let element;
     if (this.state.editing) {
@@ -56,7 +55,7 @@ export class TodoItem extends React.Component<TodoItem.Props, TodoItem.State> {
             className={style.toggle}
             type="checkbox"
             checked={todo.completed}
-            onChange={() => todo.id && completeTodo(todo.id)}
+            onChange={() => todo.id}
           />
           <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
           <button
