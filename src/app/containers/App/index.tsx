@@ -7,7 +7,7 @@ import { TodoActions } from 'app/actions';
 import { RootState } from 'app/reducers';
 import { TodoModel } from 'app/models';
 import { omit } from 'app/utils';
-import { Header, TodoList, Footer } from 'app/components';
+import { Header, TodoList } from 'app/components';
 
 const FILTER_VALUES = (Object.keys(TodoModel.Filter) as (keyof typeof TodoModel.Filter)[]).map(
   (key) => TodoModel.Filter[key]
@@ -69,13 +69,6 @@ export class App extends React.Component<App.Props> {
       <div className={style.normal}>
         <Header addTodo={actions.addTodo} />
         <TodoList todos={filteredTodos} actions={actions} />
-        <Footer
-          filter={filter}
-          activeCount={activeCount}
-          completedCount={completedCount}
-          onClickClearCompleted={this.handleClearCompleted}
-          onClickFilter={this.handleFilterChange}
-        />
       </div>
     );
   }
