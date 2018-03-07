@@ -5,7 +5,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router';
 import { InsuranceActions } from 'app/actions/insurances';
 import { RootState } from 'app/reducers';
-import { TodoModel } from 'app/models';
+import { InsuranceModel } from 'app/models';
 import { omit } from 'app/utils';
 import { Header, TodoList } from 'app/components';
 
@@ -19,8 +19,8 @@ const FILTER_FUNCTIONS: Record<TodoModel.Filter, (todo: TodoModel) => boolean> =
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
-    todos: RootState.TodoState;
     filter: TodoModel.Filter;
+    insurances: InsuranceModel[];
     actions: InsuranceActions;
   }
 }
@@ -38,6 +38,7 @@ export namespace App {
 export class App extends React.Component<App.Props> {
   static defaultProps: Partial<App.Props> = {
     filter: TodoModel.Filter.SHOW_ALL
+    insurances: []
   };
 
   constructor(props: App.Props, context?: any) {
