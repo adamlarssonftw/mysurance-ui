@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { TodoTextInput } from '../TodoTextInput';
-import { TodoActions } from 'app/actions/todos';
+import { InsuranceActions } from 'app/actions';
 
 export namespace Header {
   export interface Props {
-    addTodo: typeof TodoActions.addTodo;
+    addInsurance: typeof InsuranceActions.addINSURANCE;
   }
 }
 
@@ -16,7 +16,7 @@ export class Header extends React.Component<Header.Props> {
 
   handleSave(text: string) {
     if (text.length) {
-      this.props.addTodo({ text });
+      this.props.addInsurance({ id: 1, title: text });
     }
   }
 

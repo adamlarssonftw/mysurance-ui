@@ -2,14 +2,14 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import * as style from './style.css';
 import { TodoModel } from 'app/models';
-import { TodoActions } from 'app/actions';
 import { TodoTextInput } from '../TodoTextInput';
+import { InsuranceActions } from 'app/actions';
 
 export namespace TodoItem {
   export interface Props {
     todo: TodoModel;
-    editTodo: typeof TodoActions.editTodo;
-    deleteTodo: typeof TodoActions.deleteTodo;
+    editinsurance: typeof InsuranceActions.editINSURANCE;
+    deleteinsurance: typeof InsuranceActions.deleteINSURANCE;
   }
 
   export interface State {

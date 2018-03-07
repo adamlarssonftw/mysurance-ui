@@ -3,7 +3,7 @@ import * as style from './style.css';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router';
-import { TodoActions } from 'app/actions';
+import { InsuranceActions } from 'app/actions/insurances';
 import { RootState } from 'app/reducers';
 import { TodoModel } from 'app/models';
 import { omit } from 'app/utils';
@@ -20,8 +20,8 @@ const FILTER_FUNCTIONS: Record<TodoModel.Filter, (todo: TodoModel) => boolean> =
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
     todos: RootState.TodoState;
-    actions: TodoActions;
     filter: TodoModel.Filter;
+    actions: InsuranceActions;
   }
 }
 
