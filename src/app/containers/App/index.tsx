@@ -5,13 +5,13 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router';
 import { InsuranceActions } from 'app/actions/insurances';
 import { RootState } from 'app/reducers';
-import { InsuranceModel } from 'app/models';
+import { IInsurance } from 'app/interfaces';
 import { omit } from 'app/utils';
 import { Header, InsuranceList } from 'app/components';
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
-    insurances: InsuranceModel[];
+    insurances: IInsurance[];
     actions: InsuranceActions;
   }
 }

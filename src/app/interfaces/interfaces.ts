@@ -1,4 +1,4 @@
-export interface InsuranceModel {
+export interface IInsurance {
 	id: number;
   	category: string;
   	title?: string;

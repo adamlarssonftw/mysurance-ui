@@ -1,16 +1,16 @@
 import { handleActions } from 'redux-actions';
 import { RootState } from './state';
 import { InsuranceActions } from 'app/actions/insurances';
-import { InsuranceModel } from 'app/models';
+import { IInsurance } from 'app/interfaces';
 
-const initialState: InsuranceModel[] = [{
+const initialState: IInsurance[] = [{
   id: 1,
   title: 'initial store value',
   category: '',
   premium: 1
 }];
 
-export const insuranceReducer = handleActions<RootState.InsurancesState, InsuranceModel>(
+export const insuranceReducer = handleActions<RootState.InsurancesState, IInsurance>(
 {
   [InsuranceActions.Type.ADD_INSURANCE]: (state, action) => {
     if (action.payload) {

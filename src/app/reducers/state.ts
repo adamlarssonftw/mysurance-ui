@@ -1,4 +1,4 @@
-import { InsuranceModel } from 'app/models';
+import { IInsurance } from 'app/interfaces';
 import { RouterState } from 'react-router-redux';
 
 export interface RootState {
@@ -7,5 +7,5 @@ export interface RootState {
 }
 
 export namespace RootState {
-  export type InsurancesState = InsuranceModel[];
+  export type InsurancesState = IInsurance[];
 }

@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as style from './style.css';
 import { InsuranceActions } from 'app/actions/insurances';
 import { Insurance } from '../insurance';
-import { InsuranceModel } from '../../models/InsuranceModel';
+import { IInsurance } from '../../interfaces/interfaces';
 
 export namespace InsuranceList {
   export interface Props {
-    insurances: InsuranceModel[];
+    insurances: IInsurance[];
     actions: InsuranceActions;
   }
 }

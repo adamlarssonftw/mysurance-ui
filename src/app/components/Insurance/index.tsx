@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import * as style from './style.css';
-import { InsuranceModel } from 'app/models';
+import { IInsurance } from 'app/interfaces';
 import { InsuranceActions } from 'app/actions';
 import { TextInput } from '../TextInput';
 
 export namespace Insurance {
   export interface Props {
-    insurance: InsuranceModel;
+    insurance: IInsurance;
     editinsurance: typeof InsuranceActions.editINSURANCE;
     deleteinsurance: typeof InsuranceActions.deleteINSURANCE;
   }
