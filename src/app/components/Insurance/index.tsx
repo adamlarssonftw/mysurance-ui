@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import * as style from './style.css';
-import { TodoTextInput } from '../TodoTextInput';
 import { InsuranceModel } from 'app/models';
 import { InsuranceActions } from 'app/actions';
+import { TextInput } from '../TextInput';
 
-export namespace TodoItem {
+export namespace Insurance {
   export interface Props {
     insurance: InsuranceModel;
     editinsurance: typeof InsuranceActions.editINSURANCE;
@@ -17,8 +17,8 @@ export namespace TodoItem {
   }
 }
 
-export class TodoItem extends React.Component<TodoItem.Props, TodoItem.State> {
-  constructor(props: TodoItem.Props, context?: any) {
+export class Insurance extends React.Component<Insurance.Props, Insurance.State> {
+  constructor(props: Insurance.Props, context?: any) {
     super(props, context);
     this.state = { editing: false };
   }
@@ -27,25 +27,25 @@ export class TodoItem extends React.Component<TodoItem.Props, TodoItem.State> {
     this.setState({ editing: true });
   }
 
-  handleSave(id: number, text: string) {
-    if (text.length === 0) {
-      this.props.deleteTodo(id);
+  handleSave(id: number, title: string) {
+    if (title.length === 0) {
+      this.props.deleteinsurance(id);
     } else {
-      this.props.editTodo({ id, text });
+      this.props.editinsurance({ id, title });
     }
     this.setState({ editing: false });
   }
 
   render() {
-    const { todo, deleteTodo } = this.props;
+    const { insurance, deleteinsurance } = this.props;
 
     let element;
     if (this.state.editing) {
       element = (
-        <TodoTextInput
-          text={todo.text}
+        <TextInput
+          text={insurance.title}
           editing={this.state.editing}
-          onSave={(text) => todo.id && this.handleSave(todo.id, text)}
+          onSave={(title) => insurance.id && this.handleSave(insurance.id, title)}
         />
       );
     } else {
@@ -54,23 +54,21 @@ export class TodoItem extends React.Component<TodoItem.Props, TodoItem.State> {
           <input
             className={style.toggle}
             type="checkbox"
-            checked={todo.completed}
-            onChange={() => todo.id}
+            onChange={() => insurance.id}
           />
-          <label onDoubleClick={this.handleDoubleClick}>{todo.text}</label>
+          <label onDoubleClick={this.handleDoubleClick}>{insurance.title}</label>
           <button
             className={style.destroy}
             onClick={() => {
-              if (todo.id) deleteTodo(todo.id);
+              if (insurance.id) deleteinsurance(insurance.id);
             }}
           />
         </div>
       );
     }
 
-    // TODO: compose
+    // insurance: compose
     const classes = classNames({
-      [style.completed]: todo.completed,
       [style.editing]: this.state.editing,
       [style.normal]: !this.state.editing
     });
