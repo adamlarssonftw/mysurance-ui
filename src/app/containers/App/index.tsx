@@ -9,27 +9,16 @@ import { InsuranceModel } from 'app/models';
 import { omit } from 'app/utils';
 import { Header, TodoList } from 'app/components';
 
-const FILTER_VALUES = (Object.keys(TodoModel.Filter) as (keyof typeof TodoModel.Filter)[]).map(
-  (key) => TodoModel.Filter[key]
-);
-
-const FILTER_FUNCTIONS: Record<TodoModel.Filter, (todo: TodoModel) => boolean> = {
-  [TodoModel.Filter.SHOW_ALL]: () => true,
-};
-
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
-    filter: TodoModel.Filter;
     insurances: InsuranceModel[];
     actions: InsuranceActions;
   }
 }
 
 @connect(
-  (state: RootState): Pick<App.Props, 'todos' | 'filter'> => {
-    const hash = state.router.location && state.router.location.hash.replace('#', '');
-    const filter = FILTER_VALUES.find((value) => value === hash) || TodoModel.Filter.SHOW_ALL;
-    return { todos: state.todos, filter };
+  (state: RootState): Pick<App.Props, 'insurances'> => {
+    return { insurances: state.insurances };
   },
   (dispatch: Dispatch<RootState>): Pick<App.Props, 'actions'> => ({
     actions: bindActionCreators(omit(TodoActions, 'Type'), dispatch)
@@ -37,7 +26,6 @@ export namespace App {
 )
 export class App extends React.Component<App.Props> {
   static defaultProps: Partial<App.Props> = {
-    filter: TodoModel.Filter.SHOW_ALL
     insurances: []
   };
 
@@ -46,8 +34,7 @@ export class App extends React.Component<App.Props> {
   }
 
   render() {
-    const { todos, actions, filter } = this.props;
-    const filteredTodos = filter ? todos.filter(FILTER_FUNCTIONS[filter]) : todos;
+    const { insurances, actions } = this.props;
 
     return (
       <div className={style.normal}>
