@@ -7,7 +7,7 @@ import { InsuranceActions } from 'app/actions/insurances';
 import { RootState } from 'app/reducers';
 import { InsuranceModel } from 'app/models';
 import { omit } from 'app/utils';
-import { Header, TodoList } from 'app/components';
+import { Header, InsuranceList } from 'app/components';
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
@@ -39,7 +39,7 @@ export class App extends React.Component<App.Props> {
     return (
       <div className={style.normal}>
         <Header addTodo={actions.addTodo} />
-        <TodoList todos={filteredTodos} actions={actions} />
+      <InsuranceList insurances={insurances} actions={actions} />
       </div>
     );
   }
