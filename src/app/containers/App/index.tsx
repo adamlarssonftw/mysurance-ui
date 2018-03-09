@@ -21,7 +21,7 @@ export namespace App {
     return { insurances: state.insurances };
   },
   (dispatch: Dispatch<RootState>): Pick<App.Props, 'actions'> => ({
-    actions: bindActionCreators(omit(TodoActions, 'Type'), dispatch)
+    actions: bindActionCreators(omit(InsuranceActions, 'Type'), dispatch)
   })
 )
 export class App extends React.Component<App.Props> {
@@ -38,8 +38,8 @@ export class App extends React.Component<App.Props> {
 
     return (
       <div className={style.normal}>
-        <Header addTodo={actions.addTodo} />
-      <InsuranceList insurances={insurances} actions={actions} />
+        <Header addInsurance={actions.addINSURANCE}/>
+        <InsuranceList insurances={insurances} actions={actions}/>
       </div>
     );
   }
