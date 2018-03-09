@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TodoTextInput } from '../TodoTextInput';
+import { TextInput } from '../TextInput';
 import { InsuranceActions } from 'app/actions';
 
 export namespace Header {
@@ -24,7 +24,7 @@ export class Header extends React.Component<Header.Props> {
     return (
       <header>
         <h1>Todos</h1>
-        <TodoTextInput newTodo onSave={this.handleSave} placeholder="What needs to be done?" />
+      <TextInput newInsurance onSave={this.handleSave} placeholder="What needs to be done?" />
       </header>
     );
   }

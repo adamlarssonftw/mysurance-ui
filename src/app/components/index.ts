@@ -1,4 +1,4 @@
 export { Header } from './Header';
-export { TodoItem } from './TodoItem';
-export { TodoTextInput } from './TodoTextInput';
 export { InsuranceList } from './InsurancesList';
+export { Insurance } from './Insurance';
+export { TextInput } from './TextInput';
