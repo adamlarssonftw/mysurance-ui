@@ -13,15 +13,13 @@ export namespace InsuranceList {
 }
 
 export class InsuranceList extends React.Component<InsuranceList.Props> {
-  renderToggleAll(): JSX.Element | void {
-    const { insurances } = this.props;
-    if (insurances.length > 0) {
-      return (
-        <input
-          className={style.toggleAll}
-          type="checkbox"
-        />
-      );
+  private captions = ['Id', 'Title', 'Premium'];
+
+  private renderTableCaptions(insurances: any[]): JSX.Element | void {
+    if (insurances.length) {
+      return (<div className={styleCommon.row}>
+        {this.captions.map((caption: string, i) => (<h3 className={styleCommon.flex} key={i}>{caption}</h3>))}
+      </div>);
     }
   }
 
@@ -29,7 +27,7 @@ export class InsuranceList extends React.Component<InsuranceList.Props> {
     const { insurances, actions } = this.props;
     return (
       <section className={style.main}>
-        {this.renderToggleAll()}
+        {this.renderTableCaptions(insurances)}
         <ul className={style.normal}>
           {insurances.map((insurance) => (
             <Insurance
