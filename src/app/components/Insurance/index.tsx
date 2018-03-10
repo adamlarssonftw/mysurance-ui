@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as style from './style.css';
 import { IInsurance } from 'app/interfaces';
 import { InsuranceActions } from 'app/actions';
+import * as styleCommon from '../../styles/style.css';
 
 export namespace Insurance {
   export interface Props {
@@ -18,10 +19,12 @@ export class Insurance extends React.Component<Insurance.Props> {
 
   render() {
     const { insurance } = this.props;
-    const element = (
-        <div><p>{insurance.id} {insurance.title} {insurance.premium}</p></div>
-      );
-
-    return <li className={style.normal}>{element}</li>;
+    return <li className={style.normal}>
+      <div className={styleCommon.row}>
+        <p className={styleCommon.flex}>{insurance.id}</p>
+        <p className={styleCommon.flex}>{insurance.title}</p>
+        <p className={styleCommon.flex}>{insurance.premium}</p>
+      </div>
+    </li>;
   }
 }
