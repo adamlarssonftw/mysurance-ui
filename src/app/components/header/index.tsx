@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextInput } from '../TextInput';
+import { TextInput } from '../textInput';
 import { InsuranceActions } from 'app/actions';
 import * as styleCommon from '../../styles/style.css';
 import * as classNames from 'classnames';

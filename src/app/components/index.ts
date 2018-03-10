@@ -1,4 +1,4 @@
-export { Header } from './Header';
-export { InsuranceList } from './InsuranceList';
-export { Insurance } from './Insurance';
-export { TextInput } from './TextInput';
+export { Header } from './header';
+export { InsuranceList } from './insuranceList';
+export { Insurance } from './insurance';
+export { TextInput } from './textInput';
