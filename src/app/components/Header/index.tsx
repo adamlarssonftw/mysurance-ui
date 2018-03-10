@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { TextInput } from '../TextInput';
 import { InsuranceActions } from 'app/actions';
+import { INewInsurance } from "app/interfaces";
 
 export namespace Header {
   export interface Props {
@@ -9,22 +10,29 @@ export namespace Header {
 }
 
 export class Header extends React.Component<Header.Props> {
+  private insurance: INewInsurance = {
+    title: '',
+    premium: 0,
+    category: '',
+  };
+
   constructor(props: Header.Props, context?: any) {
     super(props, context);
     this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave(text: string) {
-    if (text.length) {
-      this.props.addInsurance({ id: 1, title: text });
-    }
+  public handleSave(e: any) {
+    e.preventDefault();
+    this.props.addInsurance(this.insurance);
   }
 
   render() {
     return (
       <header>
-        <h1>Todos</h1>
-      <TextInput newInsurance onSave={this.handleSave} placeholder="What needs to be done?" />
+        <h1>Insurances</h1>
+          <TextInput onSave={(title) => this.insurance.title = title} placeholder="Title"/>
+          <TextInput onSave={(premium) => this.insurance.premium = premium} placeholder="Premium"/>
+          <button onClick={this.handleSave}>Add</button>
       </header>
     );
   }
