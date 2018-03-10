@@ -5,20 +5,20 @@ import * as styleCommon from '../../styles/style.css';
 import * as classNames from 'classnames';
 import { INewInsurance } from "app/interfaces";
 
-export namespace Header {
+export namespace InsuranceAdder {
   export interface Props {
     addInsurance: typeof InsuranceActions.addINSURANCE;
   }
 }
 
-export class Header extends React.Component<Header.Props> {
+export class InsuranceAdder extends React.Component<InsuranceAdder.Props> {
   private insurance: INewInsurance = {
     title: '',
     premium: 0,
     category: '',
   };
 
-  constructor(props: Header.Props, context?: any) {
+  constructor(props: InsuranceAdder.Props, context?: any) {
     super(props, context);
     this.handleSave = this.handleSave.bind(this);
   }

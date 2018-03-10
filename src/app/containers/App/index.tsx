@@ -8,7 +8,7 @@ import { InsuranceActions } from 'app/actions/insurances';
 import { RootState } from 'app/reducers';
 import { IInsurance } from 'app/interfaces';
 import { omit } from 'app/utils';
-import { Header, InsuranceList } from 'app/components';
+import { InsuranceAdder, InsuranceList } from 'app/components';
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
@@ -44,7 +44,7 @@ export class App extends React.Component<App.Props> {
         </div>
         <div className={classNames(style.normal, style.footer)}>
           <h2>Add Insurance</h2>
-          <Header addInsurance={actions.addINSURANCE}/>
+          <InsuranceAdder addInsurance={actions.addINSURANCE}/>
         </div>
       </div>
     );
