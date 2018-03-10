@@ -31,6 +31,7 @@ export class InsuranceList extends React.Component<InsuranceList.Props> {
         <ul className={style.normal}>
           {insurances.map((insurance) => (
             <Insurance
+              key={insurance.id}
               insurance={insurance}
               deleteinsurance={actions.deleteINSURANCE}
               editinsurance={actions.editINSURANCE}
