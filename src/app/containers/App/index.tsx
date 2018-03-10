@@ -38,8 +38,8 @@ export class App extends React.Component<App.Props> {
 
     return (
       <div className={style.normal}>
-        <Header addInsurance={actions.addINSURANCE}/>
         <InsuranceList insurances={insurances} actions={actions}/>
+        <Header addInsurance={actions.addINSURANCE}/>
       </div>
     );
   }

@@ -47,13 +47,7 @@ export class TextInput extends React.Component<TextInput.Props, TextInput.State>
   }
 
   render() {
-    const classes = classNames(
-      {
-        [style.edit]: this.props.editing,
-        [style.new]: this.props.newInsurance
-      },
-      style.normal
-    );
+    const classes = classNames(style.new, styleCommon.flex);
 
     return (
       <input

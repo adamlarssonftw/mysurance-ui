@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { TextInput } from '../TextInput';
 import { InsuranceActions } from 'app/actions';
+import * as styleCommon from '../../styles/style.css';
+import * as classNames from 'classnames';
 import { INewInsurance } from "app/interfaces";
 
 export namespace Header {
@@ -28,12 +30,14 @@ export class Header extends React.Component<Header.Props> {
 
   render() {
     return (
-      <header>
+      <div>
         <h1>Insurances</h1>
+        <div className={styleCommon.row}>
           <TextInput onSave={(title) => this.insurance.title = title} placeholder="Title"/>
           <TextInput onSave={(premium) => this.insurance.premium = premium} placeholder="Premium"/>
-          <button onClick={this.handleSave}>Add</button>
-      </header>
+          <button className={classNames(styleCommon.add, styleCommon.flex)} onClick={this.handleSave}>Add</button>
+        </div>
+      </div>
     );
   }
 }

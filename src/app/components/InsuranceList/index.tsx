@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as style from './style.css';
+import * as styleCommon from '../../styles/style.css';
 import { InsuranceActions } from 'app/actions/insurances';
 import { Insurance } from '../insurance';
 import { IInsurance } from '../../interfaces/interfaces';
