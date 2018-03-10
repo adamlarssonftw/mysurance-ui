@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as style from './style.css';
+import * as classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router';
@@ -37,9 +38,14 @@ export class App extends React.Component<App.Props> {
     const { insurances, actions } = this.props;
 
     return (
-      <div className={style.normal}>
-        <InsuranceList insurances={insurances} actions={actions}/>
-        <Header addInsurance={actions.addINSURANCE}/>
+      <div>
+        <div className={style.normal}>
+          <InsuranceList insurances={insurances} actions={actions}/>
+        </div>
+        <div className={classNames(style.normal, style.footer)}>
+          <h2>Add Insurance</h2>
+          <Header addInsurance={actions.addINSURANCE}/>
+        </div>
       </div>
     );
   }
