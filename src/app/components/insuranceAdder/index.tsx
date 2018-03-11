@@ -32,7 +32,7 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props> {
 
   render() {
     return (
-      <div>
+      <div className={styleCommon.adder}>
         <h1>Insurances</h1>
         <div className={styleCommon.row}>
           <Dropdown list={this.props.categories} onSave={(index) => this.insurance.category = this.props.categories[index]}/>
