@@ -4,6 +4,7 @@ import { InsuranceActions } from 'app/actions';
 import * as styleCommon from '../../styles/style.css';
 import * as classNames from 'classnames';
 import { INewInsurance } from "app/interfaces";
+import { Dropdown } from "app/components/dropdown";
 
 export namespace InsuranceAdder {
   export interface Props {
@@ -34,6 +35,7 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props> {
       <div>
         <h1>Insurances</h1>
         <div className={styleCommon.row}>
+          <Dropdown list={this.props.categories} onSave={(index) => this.insurance.category = this.props.categories[index]}/>
           <TextInput onSave={(title) => this.insurance.title = title} placeholder="Title"/>
           <TextInput onSave={(premium) => this.insurance.premium = premium} placeholder="Premium"/>
           <button className={classNames(styleCommon.add, styleCommon.flex)} onClick={this.handleSave}>Add</button>
