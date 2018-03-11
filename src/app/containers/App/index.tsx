@@ -71,7 +71,7 @@ export class App extends React.Component<App.Props, State> {
         {this.state && this.state.categories &&
         <div className={classNames(style.normal, style.footer)}>
           <h2>Add Insurance</h2>
-          <InsuranceAdder addInsurance={actions.addINSURANCE}/>
+          <InsuranceAdder categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
         </div>
         }
       </div>

@@ -8,6 +8,7 @@ import { INewInsurance } from "app/interfaces";
 export namespace InsuranceAdder {
   export interface Props {
     addInsurance: typeof InsuranceActions.addINSURANCE;
+    categories: string[];
   }
 }
 
