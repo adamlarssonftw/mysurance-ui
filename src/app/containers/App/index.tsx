@@ -13,6 +13,7 @@ import { omit } from 'app/utils';
 import { InsuranceAdder, InsuranceList } from 'app/components';
 import { pluck } from "rxjs/operators";
 import State = App.State;
+import { Overview } from "app/components/overview";
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
@@ -65,15 +66,20 @@ export class App extends React.Component<App.Props, State> {
 
     return (
       <div>
-        <div className={style.normal}>
-          <InsuranceList insurances={insurances} actions={actions}/>
+        <div className={classNames(style.normal, style.header)}>
+          <h2>Overview</h2>
+          <Overview insurances={insurances}/>
         </div>
         {this.state && this.state.categories &&
-        <div className={classNames(style.normal, style.footer)}>
+        <div className={style.normal}>
           <h2>Add Insurance</h2>
           <InsuranceAdder categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
         </div>
         }
+        <div className={style.normal}>
+          <h2>My Insurances</h2>
+          <InsuranceList insurances={insurances} actions={actions}/>
+        </div>
       </div>
     );
   }

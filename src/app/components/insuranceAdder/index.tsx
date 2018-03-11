@@ -37,7 +37,7 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props> {
         <div className={styleCommon.row}>
           <Dropdown list={this.props.categories} onSave={(index) => this.insurance.category = this.props.categories[index]}/>
           <TextInput onSave={(title) => this.insurance.title = title} placeholder="Title"/>
-          <TextInput onSave={(premium) => this.insurance.premium = premium} placeholder="Premium"/>
+          <TextInput onSave={(premium) => this.insurance.premium = Number.parseFloat(premium)} placeholder="Premium"/>
           <button className={classNames(styleCommon.add, styleCommon.flex)} onClick={this.handleSave}>Add</button>
         </div>
       </div>
