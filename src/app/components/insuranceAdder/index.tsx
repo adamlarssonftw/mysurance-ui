@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TextInput } from '../textInput';
 import { InsuranceActions } from 'app/actions';
 import * as styleCommon from '../../styles/style.css';
+import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as classNames from 'classnames';
 import { INewInsurance } from "app/interfaces";
@@ -54,19 +55,18 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
   public render() {
     const isMobile = this.state.width < this.props.mobileBreakpoint;
     const responsiveClasses = boundClassNames.bind(styleCommon)(
-      { 'mobileRow': isMobile },
-      { 'row': true }
+      { 'mobileRow': isMobile }
     );
 
     return (
-      <div className={'adder'}>
+      <div className={style.adder}>
         <h1>Insurances</h1>
-        <div className={responsiveClasses}>
+        <div className={classNames(responsiveClasses, style.row)}>
           <Dropdown list={this.props.categories}
                     onSave={(index) => this.insurance.category = this.props.categories[index]}/>
           <TextInput onSave={(title) => this.insurance.title = title} placeholder="Title"/>
           <TextInput onSave={(premium) => this.insurance.premium = Number.parseFloat(premium)} placeholder="Premium"/>
-          <button className={classNames(styleCommon.add, styleCommon.cell)} onClick={this.handleSave}>Add</button>
+          <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
         </div>
       </div>
     );
