@@ -26,10 +26,10 @@ export class Insurance extends React.Component<Insurance.Props> {
     const { insurance } = this.props;
     return <li className={style.normal}>
       <div className={styleCommon.row}>
-        <p className={styleCommon.flex}>{insurance.id}</p>
-        <p className={styleCommon.flex}>{insurance.category}</p>
-        <p className={styleCommon.flex}>{insurance.title}</p>
-        <p className={styleCommon.flex}>{insurance.premium}</p>
+        <p className={styleCommon.cell}>{insurance.id}</p>
+        <p className={styleCommon.cell}>{insurance.category}</p>
+        <p className={styleCommon.cell}>{insurance.title}</p>
+        <p className={styleCommon.cell}>{insurance.premium}</p>
         <svg className={style.cross} onClick={this.handleDeletion} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"
              aria-labelledby="title">
           <title id="title">Cross</title>

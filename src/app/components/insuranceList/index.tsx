@@ -20,7 +20,7 @@ export class InsuranceList extends React.Component<InsuranceList.Props> {
     if (insurances.length) {
       return (
         <div className={classNames(styleCommon.row, styleCommon.captions)}>
-          {this.captions.map((caption: string, i) => (<h3 className={styleCommon.flex} key={i}>{caption}</h3>))}
+          {this.captions.map((caption: string, i) => (<h3 className={styleCommon.cell} key={i}>{caption}</h3>))}
         </div>
       );
     }

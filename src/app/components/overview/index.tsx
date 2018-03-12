@@ -27,7 +27,8 @@ export class Overview extends React.Component<Overview.Props> {
     return (
       <div className={classNames(style.header, style.sums)}>
         <div className={styleCommon.row}>
-          <h3>Annual Premium Total:</h3><h2>{sum}</h2>
+          <h3>Annual Premium Total:</h3>
+          <div className={styleCommon.flex}><h2>{sum}</h2><h3> CHF</h3></div>
         </div>
       </div>
     );

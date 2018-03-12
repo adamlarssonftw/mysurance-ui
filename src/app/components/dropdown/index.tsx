@@ -26,7 +26,7 @@ export class Dropdown extends React.Component<Dropdown.Props, Dropdown.State> {
   }
 
   public render() {
-    const classes = classNames(styleCommon.flex);
+    const classes = classNames(styleCommon.cell);
 
     return (
       <select
