@@ -2,6 +2,10 @@
   justify-content: space-between;
 }
 
+.mobileRow {
+  flex-direction: column;
+}
+
 .row, .cell {
   flex: 1;
 }
