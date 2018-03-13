@@ -9,7 +9,7 @@ import { Pie, Bar } from 'react-chartjs-2';
 export namespace Overview {
   export interface Props {
     insurances: IInsurance[];
-    mobileBreakpoint: number;
+    isMobile: boolean;
   }
 
   export interface State {
@@ -32,18 +32,6 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
       .reduce((sum: number, premium: number) => sum + premium, 0);
   }
 
-  public componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  public componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  private handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
-  };
-
   private getUniqueActiveCategories = (): string[] =>
     Array.from(new Set(this.props.insurances.map((i) => i.category)));
 
@@ -56,7 +44,7 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
     });
 
   render() {
-    const { insurances, mobileBreakpoint } = this.props;
+    const { insurances, isMobile } = this.props;
     const sum = this.sum;
     const titles = insurances.map((i: IInsurance) => i.title);
 
@@ -103,7 +91,7 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
     };
 
     const responsiveClasses = boundClassNames.bind(style)(
-      { 'chartHalf': mobileBreakpoint < this.state.width },
+      { 'chartHalf': !isMobile },
       { 'chart': true }
     );
 
@@ -114,7 +102,7 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
           <div className={responsiveClasses}>
             <Pie data={pieData}/>
           </div>
-          {mobileBreakpoint < this.state.width &&
+          {!isMobile &&
           <div className={classNames(style.chart, style.chartHalf)}>
             <Bar data={bar.data} options={bar.options}/>
           </div>
