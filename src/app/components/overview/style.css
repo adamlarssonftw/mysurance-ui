@@ -1,3 +1,16 @@
 .sums h2 {
   color: #c8b900
 }
+
+.chart {
+  flex: 1;
+}
+
+.chartHalf {
+  max-width: 50%;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: space-evenly;
+}

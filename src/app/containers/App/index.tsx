@@ -70,7 +70,7 @@ export class App extends React.Component<App.Props, State> {
       <div>
         <div className={classNames(style.normal, style.header)}>
           <h2>Overview</h2>
-          <Overview insurances={insurances}/>
+          <Overview mobileBreakpoint={mobileBreakpoint} insurances={insurances}/>
         </div>
         {this.state && this.state.categories &&
         <div className={style.normal}>
