@@ -24,6 +24,7 @@ export namespace App {
 
   export interface State {
     categories: string[];
+    width: number;
   }
 }
 
@@ -47,10 +48,25 @@ export class App extends React.Component<App.Props, State> {
 
   constructor(props: App.Props, context?: any) {
     super(props, context);
-    this.state = { categories: [] };
+    this.state = {
+      categories: [],
+      width: window.innerWidth
+    };
   }
 
-  componentDidMount() {
+  public componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  private handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
+
+  public componentDidMount() {
     this.categories$.pipe(
       pluck('data', 'query', 'categorymembers'),
     ).subscribe(
@@ -65,17 +81,18 @@ export class App extends React.Component<App.Props, State> {
 
   render() {
     const { insurances, actions, mobileBreakpoint } = this.props;
+    const isMobile = this.state.width < mobileBreakpoint;
 
     return (
       <div>
         <div className={classNames(style.normal, style.header)}>
           <h2>Overview</h2>
-          <Overview mobileBreakpoint={mobileBreakpoint} insurances={insurances}/>
+          <Overview isMobile={isMobile} insurances={insurances}/>
         </div>
         {this.state && this.state.categories &&
         <div className={style.normal}>
           <h2>Add Insurance</h2>
-          <InsuranceAdder mobileBreakpoint={mobileBreakpoint} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
+          <InsuranceAdder isMobile={isMobile} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
         </div>
         }
         <div className={style.normal}>

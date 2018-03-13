@@ -12,15 +12,11 @@ export namespace InsuranceAdder {
   export interface Props {
     addInsurance: typeof InsuranceActions.addINSURANCE;
     categories: string[];
-    mobileBreakpoint: number;
-  }
-
-  export interface State {
-    width: number;
+    isMobile: boolean;
   }
 }
 
-export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
+export class InsuranceAdder extends React.Component<InsuranceAdder.Props> {
   private insurance: INewInsurance = {
     title: '',
     premium: 0,
@@ -29,9 +25,6 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
 
   constructor(props: InsuranceAdder.Props, context?: any) {
     super(props, context);
-    this.state = {
-      width: window.innerWidth,
-    };
     this.handleSave = this.handleSave.bind(this);
   }
 
@@ -40,22 +33,9 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
     this.props.addInsurance(this.insurance);
   }
 
-  public componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  public componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  private handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
-  };
-
   public render() {
-    const isMobile = this.state.width < this.props.mobileBreakpoint;
     const responsiveClasses = boundClassNames.bind(styleCommon)(
-      { 'mobileRow': isMobile }
+      { 'mobileRow': this.props.isMobile }
     );
 
     return (

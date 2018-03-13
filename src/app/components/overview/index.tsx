@@ -9,15 +9,11 @@ import { Pie, Bar } from 'react-chartjs-2';
 export namespace Overview {
   export interface Props {
     insurances: IInsurance[];
-    mobileBreakpoint: number;
-  }
-
-  export interface State {
-    width: number;
+    isMobile: boolean;
   }
 }
 
-export class Overview extends React.Component<Overview.Props, Overview.State> {
+export class Overview extends React.Component<Overview.Props> {
 
   constructor(props: Overview.Props, context?: any) {
     super(props, context);
@@ -32,18 +28,6 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
       .reduce((sum: number, premium: number) => sum + premium, 0);
   }
 
-  public componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  public componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  private handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
-  };
-
   private getUniqueActiveCategories = (): string[] =>
     Array.from(new Set(this.props.insurances.map((i) => i.category)));
 
@@ -56,13 +40,13 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
     });
 
   render() {
-    const { insurances, mobileBreakpoint } = this.props;
+    const { insurances, isMobile } = this.props;
     const sum = this.sum;
     const titles = insurances.map((i: IInsurance) => i.title);
 
     const myData = {
       backgroundColor: ['#1976d2', '#ffeb3b', '#004ba0', '#c8b900', '#63a4ff', '#ffff72'],
-      data: insurances.map((i: IInsurance) => i.premium) //sum per category
+      data: insurances.map((i: IInsurance) => i.premium)
     };
 
     const pieData = {
@@ -103,7 +87,7 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
     };
 
     const responsiveClasses = boundClassNames.bind(style)(
-      { 'chartHalf': mobileBreakpoint < this.state.width },
+      { 'chartHalf': !isMobile },
       { 'chart': true }
     );
 
@@ -114,7 +98,7 @@ export class Overview extends React.Component<Overview.Props, Overview.State> {
           <div className={responsiveClasses}>
             <Pie data={pieData}/>
           </div>
-          {mobileBreakpoint < this.state.width &&
+          {!isMobile &&
           <div className={classNames(style.chart, style.chartHalf)}>
             <Bar data={bar.data} options={bar.options}/>
           </div>
