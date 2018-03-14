@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 import * as style from './style.css';
+import * as boundClassNames from 'classnames/bind';
 import * as styleCommon from '../../styles/style.css';
 import { ValidationError } from "app/interfaces";
 
 export namespace TextInput {
   export interface Props {
     text?: string | string;
-    placeholder?: string;
+    title?: string;
     editing?: boolean;
     onSave: (text: any) => void;
     validator: (value: any) => ValidationError;
@@ -42,6 +43,7 @@ export class TextInput extends React.Component<TextInput.Props, TextInput.State>
 
     return (
       <div className={style.inputContainer}>
+        <p>{this.props.title}</p>
         <div>
           <input
             className={classes}

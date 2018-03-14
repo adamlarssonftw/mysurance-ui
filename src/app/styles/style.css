@@ -30,7 +30,7 @@
   margin: 0;
 }
 
-.adder .row select, input {
+.adder, select, input {
   font-size: 16px;
   font-weight: bold;
 }
@@ -55,5 +55,19 @@
 
 .input--invalid {
   border: 1px solid red;
+}
+
+.inputContainer {
+  flex: 1;
+  margin: 8px;
+}
+
+.inputContainer p {
+  margin: 0;
+}
+
+.inputContainer select {
+  padding: 8px;
+  width: 100%;
 }
 

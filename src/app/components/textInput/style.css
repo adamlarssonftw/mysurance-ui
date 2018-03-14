@@ -25,3 +25,7 @@
   flex: 1;
   margin: 8px;
 }
+
+.inputContainer p {
+  margin: 0;
+}

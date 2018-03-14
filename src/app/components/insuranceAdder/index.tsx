@@ -86,14 +86,17 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
           <Dropdown
             list={this.props.categories}
             onSave={(index: number) => this.setState({ category: this.props.categories[index] })}
+            title="Category"
           />
           <TextInput
             validator={this.validators.required}
             onSave={(title) => this.setState({ title: title })}
+            title="Title"
           />
           <TextInput
             validator={this.validators.required && this.validators.numeric}
             onSave={(premium) => this.setState({ premium: Number.parseFloat(premium) })}
+            title="Premium"
           />
           <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
         </div>
