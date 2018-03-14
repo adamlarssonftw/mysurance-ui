@@ -5,9 +5,9 @@ import * as styleCommon from '../../styles/style.css';
 import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as classNames from 'classnames';
-import { INewInsurance } from "app/interfaces";
 import { Dropdown } from "app/components/dropdown";
 import { ValidationError } from "app/interfaces";
+import { toast } from "react-toastify";
 
 export namespace InsuranceAdder {
   export interface Props {
@@ -47,7 +47,31 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
 
   public handleSave(e: any) {
     e.preventDefault();
-    this.props.addInsurance(this.insurance);
+    const errors = this.getErrorsInState();
+    if (errors.length) {
+      this.popToast(errors);
+    }
+    else {
+      this.props.addInsurance(this.state);
+    }
+  }
+
+  private popToast(errors: ValidationError[]){
+    const allErrors = errors.reduce((acc, e) => [...acc, e.error], []).join(', ');
+    toast.error(allErrors, {
+      position: toast.POSITION.BOTTOM_CENTER,
+      hideProgressBar: true,
+    });
+  }
+
+  private getErrorsInState(): any {
+    const errors: ValidationError[] =
+      ['title', 'premium'].reduce((acc: ValidationError[], key: string) => {
+          const e = this.validationMap[key](this.state[key]);
+          return !!e ? [...acc, e] : acc;
+        }
+        , []);
+    return errors;
   }
 
   public render() {

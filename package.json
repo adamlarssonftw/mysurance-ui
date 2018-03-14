@@ -62,6 +62,7 @@
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-toastify": "^3.4.1",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "rxjs": "^5.5.6"

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import * as style from './style.css';
 import * as styleCommon from '../../styles/style.css';
+import { ValidationError } from "app/interfaces";
 
 export namespace TextInput {
   export interface Props {
