@@ -14,17 +14,25 @@ export namespace InsuranceAdder {
     categories: string[];
     isMobile: boolean;
   }
+
+  export interface State {
+    title: string;
+    premium: any;
+    category: string;
+  }
 }
 
-export class InsuranceAdder extends React.Component<InsuranceAdder.Props> {
-  private insurance: INewInsurance = {
-    title: '',
-    premium: 0,
-    category: '',
+export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
   };
 
-  constructor(props: InsuranceAdder.Props, context?: any) {
+  public constructor(props: InsuranceAdder.Props, context?: any) {
     super(props, context);
+    this.state = {
+      title: '',
+      premium: null,
+      category: props.categories[0],
+    };
+
     this.handleSave = this.handleSave.bind(this);
   }
 
@@ -42,10 +50,16 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props> {
       <div className={style.adder}>
         <h1>Insurances</h1>
         <div className={classNames(responsiveClasses, style.row)}>
-          <Dropdown list={this.props.categories}
-                    onSave={(index) => this.insurance.category = this.props.categories[index]}/>
-          <TextInput onSave={(title) => this.insurance.title = title} placeholder="Title"/>
-          <TextInput onSave={(premium) => this.insurance.premium = Number.parseFloat(premium)} placeholder="Premium"/>
+          <Dropdown
+            list={this.props.categories}
+            onSave={(index: number) => this.setState({ category: this.props.categories[index] })}
+          />
+          <TextInput
+            onSave={(title) => this.setState({ title: title })}
+          />
+          <TextInput
+            onSave={(premium) => this.setState({ premium: Number.parseFloat(premium) })}
+          />
           <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
         </div>
       </div>
