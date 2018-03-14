@@ -48,3 +48,12 @@
 .centered {
   text-align: center;
 }
+
+.invalid {
+  color: red;
+}
+
+.input--invalid {
+  border: 1px solid red;
+}
+

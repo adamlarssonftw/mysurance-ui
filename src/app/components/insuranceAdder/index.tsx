@@ -7,6 +7,7 @@ import * as boundClassNames from 'classnames/bind';
 import * as classNames from 'classnames';
 import { INewInsurance } from "app/interfaces";
 import { Dropdown } from "app/components/dropdown";
+import { ValidationError } from "app/interfaces";
 
 export namespace InsuranceAdder {
   export interface Props {
@@ -23,6 +24,14 @@ export namespace InsuranceAdder {
 }
 
 export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
+  private validators = {
+    required: (value: string) => !!value ? null : { error: 'This field is required' },
+    numeric: (value: string) => Number.parseFloat(value) ? null : { error: 'This field should only contain valid numbers' },
+  };
+
+  private validationMap: { [key: string]: (value: string) => ValidationError } = {
+    title: this.validators.required,
+    premium: this.validators.required && this.validators.numeric
   };
 
   public constructor(props: InsuranceAdder.Props, context?: any) {
@@ -55,9 +64,11 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
             onSave={(index: number) => this.setState({ category: this.props.categories[index] })}
           />
           <TextInput
+            validator={this.validators.required}
             onSave={(title) => this.setState({ title: title })}
           />
           <TextInput
+            validator={this.validators.required && this.validators.numeric}
             onSave={(premium) => this.setState({ premium: Number.parseFloat(premium) })}
           />
           <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
