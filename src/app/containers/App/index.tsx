@@ -89,7 +89,7 @@ export class App extends React.Component<App.Props, State> {
           <h2>Overview</h2>
           <Overview isMobile={isMobile} insurances={insurances}/>
         </div>
-        {this.state && this.state.categories &&
+        {this.state && this.state.categories.length &&
         <div className={style.normal}>
           <h2>Add Insurance</h2>
           <InsuranceAdder isMobile={isMobile} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
