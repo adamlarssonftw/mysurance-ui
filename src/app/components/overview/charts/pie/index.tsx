@@ -8,6 +8,7 @@ export namespace PieChart {
   export interface Props {
     insurances: IInsurance[];
     isMobile: boolean;
+    colors: string[];
   }
 }
 
@@ -23,7 +24,7 @@ export class PieChart extends React.Component<PieChart.Props> {
     const pieData = {
       labels: insurances.map((i: IInsurance) => i.title),
       datasets: [{
-        backgroundColor: ['#1976d2', '#ffeb3b', '#004ba0', '#c8b900', '#63a4ff', '#ffff72'],
+        backgroundColor: this.props.colors,
         data: insurances.map((i: IInsurance) => i.premium)
       }],
     };

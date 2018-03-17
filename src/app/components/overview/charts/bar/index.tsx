@@ -8,6 +8,7 @@ import { sumProperty } from "app/utils";
 export namespace BarChart {
   export interface Props {
     insurances: IInsurance[];
+    colors: string[];
   }
 }
 
@@ -37,7 +38,7 @@ export class BarChart extends React.Component<BarChart.Props> {
         datasets: [
           {
             label: 'My Insurances',
-            backgroundColor: ['#1976d2', '#ffeb3b', '#004ba0', '#c8b900', '#63a4ff', '#ffff72'],
+            backgroundColor: this.props.colors,
             data: summedPremiumsByCategory
           },
           {

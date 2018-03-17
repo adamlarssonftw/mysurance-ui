@@ -23,6 +23,8 @@ export class Overview extends React.Component<Overview.Props> {
   render() {
     const { insurances, isMobile } = this.props;
     const sum = sumProperty(insurances, 'premium');
+    const allColors = ['#1976d2', '#ffeb3b', '#004ba0', '#c8b900', '#63a4ff', '#ffff72'];
+    const colors = insurances.map((insurance, index) => allColors[index % allColors.length]);
 
     return (
       <div className={classNames(style.header, style.sums)}>
