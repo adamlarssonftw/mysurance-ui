@@ -14,7 +14,7 @@ export namespace InsuranceList {
 }
 
 export class InsuranceList extends React.Component<InsuranceList.Props> {
-  private captions = ['Id', 'Category', 'Title', 'Premium'];
+  private captions = ['Category', 'Title', 'Annual Premium'];
 
   private renderTableCaptions(insurances: any[]): JSX.Element {
     if (insurances.length) {
