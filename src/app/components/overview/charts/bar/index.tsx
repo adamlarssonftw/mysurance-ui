@@ -17,6 +17,17 @@ export class BarChart extends React.Component<BarChart.Props> {
   constructor(props: BarChart.Props, context?: any) {
     super(props, context);
   }
+  private chartOptions = {
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  };
 
   private getUnique = (list: any[], propKey: string): string[] =>
     Array.from(new Set(list.map((item) => item[propKey])));
@@ -28,7 +39,11 @@ export class BarChart extends React.Component<BarChart.Props> {
     });
   };
 
-  render() {
+  public shouldComponentUpdate(nextProps: BarChart.Props) {
+    return nextProps.insurances.length !== this.props.insurances.length;
+  }
+
+  public render() {
     const insurances = this.props.insurances;
     const uniqueCategories = this.getUnique(insurances, 'category');
     const summedPremiumsByCategory = this.sumCategoryPremiums(insurances, uniqueCategories);
@@ -48,15 +63,7 @@ export class BarChart extends React.Component<BarChart.Props> {
           },
         ],
       },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
+        ...this.chartOptions
     };
 
     return (
