@@ -9,7 +9,6 @@ export namespace TextInput {
   export interface Props {
     text?: string | string;
     title?: string;
-    editing?: boolean;
     onSave: (text: any) => void;
     validator: (value: any) => ValidationError;
   }
