@@ -13,10 +13,6 @@ export namespace BarChart {
 }
 
 export class BarChart extends React.Component<BarChart.Props> {
-
-  constructor(props: BarChart.Props, context?: any) {
-    super(props, context);
-  }
   private chartOptions = {
     options: {
       scales: {
@@ -28,6 +24,10 @@ export class BarChart extends React.Component<BarChart.Props> {
       }
     }
   };
+
+  constructor(props: BarChart.Props, context?: any) {
+    super(props, context);
+  }
 
   private getUnique = (list: any[], propKey: string): string[] =>
     Array.from(new Set(list.map((item) => item[propKey])));
