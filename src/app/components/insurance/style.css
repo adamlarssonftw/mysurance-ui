@@ -104,4 +104,5 @@
 
 .cross {
   fill: red;
+  cursor: pointer;
 }
