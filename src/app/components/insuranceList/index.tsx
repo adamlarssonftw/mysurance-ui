@@ -28,7 +28,7 @@ export class InsuranceList extends React.Component<InsuranceList.Props> {
       return (
         <div className={styleCommon.container}>
           <h3 className={styleCommon.centered}>Uh Oh! You're not really uninsured, are you?</h3>
-          <h4 className={styleCommon.centered}>Use the menu below to add any insurances that you might have.</h4>
+          <h4 className={styleCommon.centered}>Use the menu above to add any insurances that you might have.</h4>
         </div>
       );
     }

@@ -96,7 +96,7 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
           <TextInput
             validator={this.validators.required && this.validators.numeric}
             onSave={(premium) => this.setState({ premium: Number.parseFloat(premium) })}
-            title="Premium"
+            title="Annual Premium"
           />
           <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
         </div>
