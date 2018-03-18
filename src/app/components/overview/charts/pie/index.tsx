@@ -18,7 +18,7 @@ export class PieChart extends React.Component<PieChart.Props> {
     super(props, context);
   }
 
-  render() {
+  public render() {
     const { insurances, isMobile } = this.props;
 
     const pieData = {

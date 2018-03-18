@@ -20,7 +20,7 @@ export class Overview extends React.Component<Overview.Props> {
     super(props, context);
   }
 
-  render() {
+  public render() {
     const { insurances, isMobile } = this.props;
     const sum = sumProperty(insurances, 'premium');
     const allColors = ['#1976d2', '#ffeb3b', '#004ba0', '#c8b900', '#63a4ff', '#ffff72'];
