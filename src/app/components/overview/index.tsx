@@ -27,20 +27,24 @@ export class Overview extends React.Component<Overview.Props> {
     const colors = insurances.map((insurance, index) => allColors[index % allColors.length]);
 
     return (
-      <div className={classNames(style.header, style.sums)}>
-        {!!insurances.length &&
-        <div className={style.chartContainer}>
-          <PieChart isMobile={isMobile} insurances={insurances}/>
-          {!isMobile &&
-          <BarChart insurances={insurances}/>
-          }
+      !!insurances.length ?
+        <div className={classNames(style.header, style.sums)}>
+          <div className={style.chartContainer}>
+            <PieChart colors={colors} isMobile={isMobile} insurances={insurances}/>
+            {!isMobile &&
+            <BarChart colors={colors} insurances={insurances}/>
+            }
+          </div>
+          <div className={styleCommon.row}>
+            <h3>Annual Premium Total:</h3>
+            <div className={styleCommon.flex}><h2>{sum}</h2><h3> CHF</h3></div>
+          </div>
         </div>
-        }
-        <div className={styleCommon.row}>
-          <h3>Annual Premium Total:</h3>
-          <div className={styleCommon.flex}><h2>{sum}</h2><h3> CHF</h3></div>
+        :
+        <div className={styleCommon.container}>
+          <h3 className={styleCommon.centered}>Uh Oh! You're not really uninsured, are you?</h3>
+          <h4 className={styleCommon.centered}>Use the menu below to add any insurances that you might have.</h4>
         </div>
-      </div>
     );
   }
 }

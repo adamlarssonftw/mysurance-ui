@@ -96,10 +96,12 @@ export class App extends React.Component<App.Props, State> {
           <InsuranceAdder isMobile={isMobile} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
         </div>
         }
+        {!!insurances.length &&
         <div className={style.normal}>
           <h2>My Insurances</h2>
           <InsuranceList insurances={insurances} actions={actions}/>
         </div>
+        }
         <ToastContainer className={style.toastError}/>
       </div>
     );
