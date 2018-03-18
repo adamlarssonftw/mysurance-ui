@@ -18,6 +18,10 @@ export class PieChart extends React.Component<PieChart.Props> {
     super(props, context);
   }
 
+  public shouldComponentUpdate(nextProps: PieChart.Props) {
+    return nextProps.insurances.length !== this.props.insurances.length;
+  }
+
   public render() {
     const { insurances, isMobile } = this.props;
 
