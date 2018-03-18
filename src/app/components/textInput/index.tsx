@@ -7,8 +7,8 @@ import { ValidationError } from "app/interfaces";
 
 export namespace TextInput {
   export interface Props {
-    text?: string | string;
-    title?: string;
+    text?: string;
+    title: string;
     onSave: (text: any) => void;
     validator: (value: any) => ValidationError;
   }

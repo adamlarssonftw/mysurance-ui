@@ -63,7 +63,7 @@ export class BarChart extends React.Component<BarChart.Props> {
           },
         ],
       },
-        ...this.chartOptions
+      ...this.chartOptions
     };
 
     return (

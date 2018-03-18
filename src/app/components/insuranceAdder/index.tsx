@@ -56,7 +56,7 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
     }
   }
 
-  private popToast(errors: ValidationError[]){
+  private popToast(errors: ValidationError[]): void {
     const allErrors = errors.reduce((acc, e) => [...acc, e.error], []).join(', ');
     toast.error(allErrors, {
       position: toast.POSITION.BOTTOM_CENTER,
