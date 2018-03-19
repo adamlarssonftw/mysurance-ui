@@ -3,42 +3,62 @@ import * as classNames from 'classnames';
 import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as styleCommon from '../../styles/style.css';
-import { ValidationError } from "app/interfaces";
 
 export namespace TextInput {
   export interface Props {
-    text?: string;
+    state: {
+      errors: any[],
+      text?: string,
+      valid: boolean;
+    }
     title: string;
     onSave: (text: any) => void;
-    validator: (value: any) => ValidationError;
   }
 
   export interface State {
     text: string;
-    valid: boolean;
-    errors: ValidationError;
   }
 }
+
+function ErrorMsg(props) {
+  const { errors } = props;
+
+  if (!!errors && errors.length) {
+    return (<p className={styleCommon.invalid}>{errors[0] ? errors[0].error : ''}</p>);
+  }
+  else {
+    return null;
+  }
+};
 
 export class TextInput extends React.Component<TextInput.Props, TextInput.State> {
   constructor(props: TextInput.Props, context?: any) {
     super(props, context);
-    this.state = { text: this.props.text || '', valid: true, errors: null };
+    this.state = { text: this.props.state.text || '' };
     this.handleChange = this.handleChange.bind(this);
   }
 
   public handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const errors = this.props.validator(event.target.value);
-    this.setState({ text: event.target.value, errors: errors, valid: !errors });
+    this.setState({ text: event.target.value });
     this.props.onSave(event.target.value);
   }
 
   public render() {
+    const { valid, errors } = this.props.state;
     const validationStyling = boundClassNames.bind(styleCommon)(
-      { 'input--invalid': !this.state.valid }
+      { 'input--invalid': !valid }
     );
 
     const classes = classNames(style.new, styleCommon.cell, validationStyling);
+
+    const errorMsg = (errors) => {
+      if (!!errors && errors.length) {
+        return (<p className={styleCommon.invalid}>{errors[0] ? errors[0].error : ''}</p>);
+      }
+      else {
+        return null;
+      }
+    };
 
     return (
       <div className={style.inputContainer}>
@@ -53,9 +73,7 @@ export class TextInput extends React.Component<TextInput.Props, TextInput.State>
             onInput={this.handleChange}
           />
         </div>
-        { this.state.errors &&
-          <p className={styleCommon.invalid}>{this.state.errors.error}</p>
-        }
+        <ErrorMsg errors={errors}></ErrorMsg>
       </div>
     );
   }

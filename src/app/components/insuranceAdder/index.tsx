@@ -6,7 +6,7 @@ import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as classNames from 'classnames';
 import { Dropdown } from "app/components/dropdown";
-import { ValidationError } from "app/interfaces";
+import { INewInsurance, ValidationError } from "app/interfaces";
 import { toast } from "react-toastify";
 
 export namespace InsuranceAdder {
@@ -17,28 +17,39 @@ export namespace InsuranceAdder {
   }
 
   export interface State {
-    title: string;
-    premium: any;
+    title: {
+      value: string,
+      valid: boolean,
+      errors: any[],
+    },
+    premium: {
+      value: number,
+      valid: boolean,
+      errors: any[],
+    },
     category: string;
   }
 }
 
 export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
   private validators = {
-    required: (value: string) => !!value ? null : { error: 'This field is required' },
-    numeric: (value: string) => Number.parseFloat(value) ? null : { error: 'This field should only contain valid numbers' },
-  };
-
-  private validationMap: { [key: string]: (value: string) => ValidationError } = {
-    title: this.validators.required,
-    premium: this.validators.required && this.validators.numeric
+    required: (value: any) => !!value ? null : { error: 'This field is required' },
+    numeric: (value: any) => !!Number.parseFloat(value) ? null : { error: 'This field should only contain valid numbers' }
   };
 
   public constructor(props: InsuranceAdder.Props, context?: any) {
     super(props, context);
     this.state = {
-      title: '',
-      premium: null,
+      title: {
+        value: '',
+        valid: true,
+        errors: [],
+      },
+      premium: {
+        value: null,
+        valid: true,
+        errors: [],
+      },
       category: props.categories[0],
     };
 
@@ -47,31 +58,52 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
 
   public handleSave(e: any) {
     e.preventDefault();
-    const errors = this.getErrorsInState();
+    const errors = ['title', 'premium'].reduce((acc: string, key: string) => {
+      const error = this.state[key] && this.state[key].errors ? this.state[key].errors : null;
+      return !!error ? acc + ', ' + error : acc;
+    }, '');
+
     if (errors.length) {
       this.popToast(errors);
     }
     else {
-      this.props.addInsurance(this.state);
+      const insurance: INewInsurance = {
+        title: this.state.title.value,
+        premium: this.state.premium.value,
+        category: this.state.category
+      };
+      this.props.addInsurance(insurance);
     }
   }
 
-  private popToast(errors: ValidationError[]): void {
-    const allErrors = errors.reduce((acc, e) => [...acc, e.error], []).join(', ');
-    toast.error(allErrors, {
+  private popToast(errors: string): void {
+    toast.error(errors, {
       position: toast.POSITION.BOTTOM_CENTER,
       hideProgressBar: true,
     });
   }
 
-  private getErrorsInState(): any {
-    const errors: ValidationError[] =
-      ['title', 'premium'].reduce((acc: ValidationError[], key: string) => {
-          const e = this.validationMap[key](this.state[key]);
-          return !!e ? [...acc, e] : acc;
+  private trySetState(validationFunctions, value: string, key: string) {
+    const errors = validationFunctions.map((fn) => fn(value)).filter((x) => !!x);
+    if (errors.length) {
+      // @ts-ignore (doesn't like dynamic keys)
+      this.setState({
+        [key]: {
+          valid: false,
+          errors: errors,
+          value
+        },
+      });
+    }
+    else {
+      // @ts-ignore (doesn't like dynamic keys)
+      this.setState({
+        [key]: {
+          valid: true,
+          errors: null,
         }
-        , []);
-    return errors;
+      });
+    }
   }
 
   public render() {
@@ -89,13 +121,15 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
             title="Category"
           />
           <TextInput
-            validator={this.validators.required}
-            onSave={(title) => this.setState({ title: title })}
+            state={this.state.title}
+            onSave={(title) => this.trySetState([this.validators.required], title, 'title')}
             title="Title"
           />
           <TextInput
-            validator={this.validators.required && this.validators.numeric}
-            onSave={(premium) => this.setState({ premium: Number.parseFloat(premium) })}
+            state={this.state.premium}
+            onSave={(premium) =>
+              this.trySetState(
+                [this.validators.required, this.validators.numeric], premium, 'premium')}
             title="Annual Premium"
           />
           <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
