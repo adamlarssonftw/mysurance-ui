@@ -13,4 +13,5 @@ export interface IValidatedField {
   valid?: boolean;
   touched?: boolean;
   errors?: any[];
+  validators: ((value: any) => { error: string })[]
 }
