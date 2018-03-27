@@ -96,7 +96,11 @@
     "moduleFileExtensions": [
       "tsx",
       "js",
+      "ts",
       "jsx"
+    ],
+    "testPathIgnorePatterns": [
+      ".*setup.ts"
     ]
   }
 }
