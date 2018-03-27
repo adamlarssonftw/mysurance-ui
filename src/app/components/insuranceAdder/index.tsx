@@ -25,25 +25,20 @@ export namespace InsuranceAdder {
 }
 
 export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
+  private initialState = {
+    title: {
+      ...this.initialFieldState(''),
+    },
+    premium: {
+      ...this.initialFieldState(''),
+    },
+    category: this.props.categories[0],
   };
 
   public constructor(props: InsuranceAdder.Props, context?: any) {
     super(props, context);
-    this.state = {
-      title: {
-        value: '',
-        valid: true,
-        errors: [],
-      },
-      premium: {
-        value: null,
-        valid: true,
-        errors: [],
-      },
-      category: props.categories[0],
-    };
-
     this.handleSave = this.handleSave.bind(this);
+    this.state = this.initialState;
   }
 
   public handleSave(e: any) {
@@ -64,6 +59,21 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
       };
       this.props.addInsurance(insurance);
     }
+  }
+
+
+  private initialFieldState(value): IValidatedField {
+    return {
+      valid: false,
+      touched: false,
+      errors: [],
+      value,
+      validators: []
+    };
+  };
+
+  private setInitialState() {
+    this.setState(this.initialState);
   }
 
   private popToast(errors: string): void {
