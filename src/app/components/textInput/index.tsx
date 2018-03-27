@@ -11,9 +11,6 @@ export namespace TextInput {
     title: string;
     onSave: (text: any) => void;
   }
-
-  export interface State extends IValidatedField {
-  }
 }
 
 function ErrorMsg(props) {
@@ -27,15 +24,13 @@ function ErrorMsg(props) {
   }
 };
 
-export class TextInput extends React.Component<TextInput.Props, TextInput.State> {
+export class TextInput extends React.Component<TextInput.Props> {
   constructor(props: TextInput.Props, context?: any) {
     super(props, context);
-    this.state = { text: this.props.state.text || '' };
     this.handleChange = this.handleChange.bind(this);
   }
 
   public handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ text: event.target.value });
     this.props.onSave(event.target.value);
   }
 
@@ -65,8 +60,8 @@ export class TextInput extends React.Component<TextInput.Props, TextInput.State>
             type="text"
             autoFocus
             placeholder={this.props.title}
-            value={this.state.text}
-            onInput={this.handleChange}
+            value={value || ''}
+            onChange={this.handleChange}
           />
         </div>
         <ErrorMsg errors={errors}></ErrorMsg>
