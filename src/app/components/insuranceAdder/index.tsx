@@ -25,6 +25,7 @@ export namespace InsuranceAdder {
 }
 
 export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
+  private fieldsToValidate = ['title', 'premium'];
   private initialState = {
     title: {
       ...this.initialFieldState(''),
@@ -43,26 +44,39 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
     this.state = this.initialState;
   }
 
-  public handleSave(e: any) {
+  public handleSave(e: any): void {
     e.preventDefault();
-    const errors = ['title', 'premium'].reduce((acc: string, key: string) => {
-      const error = this.state[key] && this.state[key].errors ? this.state[key].errors : null;
-      return !!error ? acc + ', ' + error : acc;
-    }, '');
+    const allInputErrors = this.getAllValidationErrors();
+    const allInputsValid = this.checkInputsProperty('valid');
+    const allInputsTouched = this.checkInputsProperty('touched');
 
-    if (errors.length) {
-      this.popToast(errors);
+    if (!!allInputErrors.length) {
+      this.popToast(allInputErrors[0].error);
     }
-    else {
-      const insurance: INewInsurance = {
-        title: this.state.title.value,
-        premium: this.state.premium.value,
-        category: this.state.category
-      };
-      this.props.addInsurance(insurance);
+    else if (allInputsValid && allInputsTouched) {
+      const { title, premium, category } = this.state;
+      this.setInitialState();
+
+      this.props.addInsurance({
+        title: title.value,
+        premium: Number.parseFloat(premium.value),
+        category
+      });
+    }
+    else if (!allInputsTouched) {
+      this.fieldsToValidate.forEach((key: string) => this.handleChange(this.state[key].value, key));
     }
   }
 
+  private checkInputsProperty = (prop: string): boolean =>
+    this.fieldsToValidate.every((key) => this.state[key][prop]);
+
+  private getAllValidationErrors = (): any[] =>
+    this.fieldsToValidate.reduce((acc, key) =>
+        this.state[key].errors ?
+          [...acc, ...this.state[key].errors] :
+          acc
+      , []);
 
   private initialFieldState(value): IValidatedField {
     return {
