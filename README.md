@@ -1,6 +1,12 @@
 # mysurance-ui
+A small list-based application built using React and (some) RxJs.
 
 Based on boilerplate project: [react-mobx-typescript-boilerplate](https://github.com/rokoroku/react-mobx-typescript-boilerplate)
+
+## Screenshots
+![Initial state](https://i.gyazo.com/bd42e60c14d3f1da5d8692351418ceb3.png)
+![Input validation active](https://i.gyazo.com/213afe7708b7b276a05592dee52c61f9.png)
+![Desktop view](https://gyazo.com/c8fe9060019232947a78f6a5ba5e1e85)
 
 ## Contains
 
