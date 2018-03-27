@@ -8,6 +8,7 @@ import * as classNames from 'classnames';
 import { Dropdown } from "app/components/dropdown";
 import { IValidatedField } from "app/interfaces";
 import { toast } from "react-toastify";
+import { Validators } from "app/components/insuranceAdder/validators/validators";
 
 export namespace InsuranceAdder {
   export interface Props {
@@ -24,9 +25,6 @@ export namespace InsuranceAdder {
 }
 
 export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
-  private validators = {
-    required: (value: any) => !!value ? null : { error: 'This field is required' },
-    numeric: (value: any) => !!Number.parseFloat(value) ? null : { error: 'This field should only contain valid numbers' }
   };
 
   public constructor(props: InsuranceAdder.Props, context?: any) {

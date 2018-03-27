@@ -3,9 +3,6 @@ import { mount } from 'enzyme';
 import { TextInput } from "../../src/app/components/textInput";
 
 describe('TextInput:', () => {
-  const validators = {
-    required: (value: string) => !!value ? null : { error: 'This field is required' },
-    numeric: (value: string) => Number.parseFloat(value) ? null : { error: 'This field should only contain valid numbers' },
   };
 
   const wrap = mount(
