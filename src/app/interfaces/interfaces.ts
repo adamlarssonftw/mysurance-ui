@@ -8,5 +8,9 @@ export interface INewInsurance {
   premium: number;
 }
 
-export type ValidationError = null | { [key: string]: string };
-
+export interface IValidatedField {
+  value: string;
+  valid?: boolean;
+  touched?: boolean;
+  errors?: any[];
+}

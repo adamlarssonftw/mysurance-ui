@@ -3,20 +3,16 @@ import * as classNames from 'classnames';
 import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as styleCommon from '../../styles/style.css';
+import { IValidatedField } from "app/interfaces";
 
 export namespace TextInput {
   export interface Props {
-    state: {
-      errors: any[],
-      text?: string,
-      valid: boolean;
-    }
+    state: IValidatedField,
     title: string;
     onSave: (text: any) => void;
   }
 
-  export interface State {
-    text: string;
+  export interface State extends IValidatedField {
   }
 }
 

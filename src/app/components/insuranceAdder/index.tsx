@@ -6,7 +6,7 @@ import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as classNames from 'classnames';
 import { Dropdown } from "app/components/dropdown";
-import { INewInsurance, ValidationError } from "app/interfaces";
+import { IValidatedField } from "app/interfaces";
 import { toast } from "react-toastify";
 
 export namespace InsuranceAdder {
@@ -17,16 +17,8 @@ export namespace InsuranceAdder {
   }
 
   export interface State {
-    title: {
-      value: string,
-      valid: boolean,
-      errors: any[],
-    },
-    premium: {
-      value: number,
-      valid: boolean,
-      errors: any[],
-    },
+    title: IValidatedField,
+    premium: IValidatedField
     category: string;
   }
 }
