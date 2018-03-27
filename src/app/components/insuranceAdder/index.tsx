@@ -28,9 +28,11 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
   private initialState = {
     title: {
       ...this.initialFieldState(''),
+      validators: [Validators.required],
     },
     premium: {
       ...this.initialFieldState(''),
+      validators: [Validators.required, Validators.numeric],
     },
     category: this.props.categories[0],
   };
@@ -83,27 +85,22 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
     });
   }
 
-  private trySetState(validationFunctions, value: string, key: string) {
-    const errors = validationFunctions.map((fn) => fn(value)).filter((x) => !!x);
-    if (errors.length) {
-      // @ts-ignore (doesn't like dynamic keys)
-      this.setState({
-        [key]: {
-          valid: false,
-          errors: errors,
-          value
-        },
-      });
-    }
-    else {
-      // @ts-ignore (doesn't like dynamic keys)
-      this.setState({
-        [key]: {
-          valid: true,
-          errors: null,
-        }
-      });
-    }
+  private handleChange(value: string, key: string) {
+    const errors = this.state[key].validators.map((fn) => fn(value)).filter((val) => !!val);
+    const valid = !errors.length;
+
+    const newState = {
+      [key]: {
+        ...this.state[key],
+        valid,
+        touched: true,
+        errors,
+        value
+      },
+    };
+
+    // @ts-ignore (doesn't like dynamic keys)
+    this.setState(newState);
   }
 
   public render() {
@@ -122,14 +119,12 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
           />
           <TextInput
             state={this.state.title}
-            onSave={(title) => this.trySetState([this.validators.required], title, 'title')}
+            onSave={(title) => this.handleChange(title, 'title')}
             title="Title"
           />
           <TextInput
             state={this.state.premium}
-            onSave={(premium) =>
-              this.trySetState(
-                [this.validators.required, this.validators.numeric], premium, 'premium')}
+            onSave={(premium) => this.handleChange(premium, 'premium')}
             title="Annual Premium"
           />
           <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
