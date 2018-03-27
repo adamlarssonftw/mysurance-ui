@@ -35,21 +35,12 @@ export class TextInput extends React.Component<TextInput.Props> {
   }
 
   public render() {
-    const { valid, errors } = this.props.state;
+    const { valid, errors, touched, value } = this.props.state;
     const validationStyling = boundClassNames.bind(styleCommon)(
-      { 'input--invalid': !valid }
+      { 'input--invalid': !valid && touched }
     );
 
     const classes = classNames(style.new, styleCommon.cell, validationStyling);
-
-    const errorMsg = (errors) => {
-      if (!!errors && errors.length) {
-        return (<p className={styleCommon.invalid}>{errors[0] ? errors[0].error : ''}</p>);
-      }
-      else {
-        return null;
-      }
-    };
 
     return (
       <div className={style.inputContainer}>
