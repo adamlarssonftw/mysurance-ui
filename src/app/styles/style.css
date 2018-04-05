@@ -1,0 +1,75 @@
+.row {
+  justify-content: space-between;
+}
+
+.mobileRow {
+  flex-direction: column;
+}
+
+.row, .cell {
+  flex: 1;
+}
+
+.cell {
+  padding: 8px;
+}
+
+.flex, .row {
+  display: flex;
+}
+
+.row, .container {
+  padding: 8px;
+}
+
+.captions {
+  border-bottom: 1px solid #ededed;
+  padding-right: 48px;
+}
+
+.row h3 {
+  margin: 0;
+}
+
+.adder, select, input {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.row h3, .row p {
+  padding: 8px 0;
+}
+
+.row p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.invalid {
+  color: red;
+}
+
+.input--invalid {
+  border: 1px solid red;
+}
+
+.inputContainer {
+  flex: 1;
+  margin: 8px;
+}
+
+.inputContainer p {
+  margin: 0;
+}
+
+.inputContainer select {
+  border: 1px solid;
+  padding: 8px;
+  width: 100%;
+}
+

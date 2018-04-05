@@ -4,7 +4,7 @@
   "description": "A simple React-based application that lets the user list and add their own insurances.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "start": "webpack-dev-server --mode development --hot --progress --color --port 3000 --open",
     "build": "webpack -p --progress --colors",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\""
@@ -17,7 +17,10 @@
   "license": "MIT",
   "devDependencies": {
     "@types/classnames": "2.2.3",
+    "@types/enzyme": "^3.1.9",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/history": "4.6.2",
+    "@types/jest": "^22.2.0",
     "@types/node": "9.4.6",
     "@types/react": "16.0.40",
     "@types/react-dom": "16.0.4",
@@ -27,12 +30,19 @@
     "@types/redux-actions": "2.2.4",
     "@types/webpack": "3.8.8",
     "@types/webpack-env": "1.13.5",
+    "babel-jest": "^23.0.0-alpha.0",
     "babel-loader": "^7.1.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.10",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "html-loader": "^1.0.0-alpha.0",
     "html-webpack-plugin": "^3.0.4",
+    "jest": "^23.0.0-alpha.0",
     "postcss": "^6.0.19",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-cssnext": "^3.1.0",
@@ -44,6 +54,7 @@
     "react-hot-loader": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
     "style-loader": "^0.20.2",
+    "ts-jest": "^22.4.1",
     "ts-loader": "^4.0.0",
     "typescript": "^2.7.2",
     "url-loader": "^1.0.0-beta.0",
@@ -53,13 +64,43 @@
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "chart.js": "^2.7.2",
     "classnames": "^2.2.5",
     "react": "^16.2.0",
+    "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-toastify": "^3.4.1",
     "redux": "^3.7.2",
-    "redux-actions": "^2.2.1"
+    "redux-actions": "^2.2.1",
+    "rxjs": "^5.5.6"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/__tests__/setup.ts"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "tsx",
+      "js",
+      "ts",
+      "jsx"
+    ],
+    "testPathIgnorePatterns": [
+      ".*setup.ts"
+    ]
   }
 }

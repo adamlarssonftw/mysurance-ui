@@ -96,7 +96,13 @@
   .normal .toggle {
     background: none;
   }
+
   .normal .toggle {
     height: 40px;
   }
+}
+
+.cross {
+  fill: red;
+  cursor: pointer;
 }
