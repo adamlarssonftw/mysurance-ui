@@ -7,3 +7,6 @@ export interface INewInsurance {
   title?: string;
   premium: number;
 }
+
+export type ValidationError = null | { [key: string]: string };
+

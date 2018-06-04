@@ -13,7 +13,7 @@
   justify-content: space-between;
 }
 
-.row select, .row button {
+.row button {
   margin: 8px;
 }
 

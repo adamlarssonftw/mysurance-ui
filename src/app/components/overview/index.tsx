@@ -3,10 +3,14 @@ import * as style from './style.css';
 import * as styleCommon from '../../styles/style.css';
 import * as classNames from 'classnames';
 import { IInsurance } from "app/interfaces";
+import { BarChart } from "app/components/overview/charts/bar";
+import { PieChart } from "app/components/overview/charts/pie";
+import { sumProperty } from "app/utils";
 
 export namespace Overview {
   export interface Props {
     insurances: IInsurance[];
+    isMobile: boolean;
   }
 }
 
@@ -16,16 +20,20 @@ export class Overview extends React.Component<Overview.Props> {
     super(props, context);
   }
 
-  public get sum(): number {
-    return this.props.insurances
-      .map((insurance: IInsurance) => insurance.premium)
-      .reduce((sum: number, premium: number) => sum + premium, 0);
-  }
-
   render() {
-    const sum = this.sum;
+    const { insurances, isMobile } = this.props;
+    const sum = sumProperty(insurances, 'premium');
+
     return (
       <div className={classNames(style.header, style.sums)}>
+        {!!insurances.length &&
+        <div className={style.chartContainer}>
+          <PieChart isMobile={isMobile} insurances={insurances}/>
+          {!isMobile &&
+          <BarChart insurances={insurances}/>
+          }
+        </div>
+        }
         <div className={styleCommon.row}>
           <h3>Annual Premium Total:</h3>
           <div className={styleCommon.flex}><h2>{sum}</h2><h3> CHF</h3></div>

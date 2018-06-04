@@ -14,6 +14,7 @@ import { InsuranceAdder, InsuranceList } from 'app/components';
 import { pluck } from "rxjs/operators";
 import State = App.State;
 import { Overview } from "app/components/overview";
+import { ToastContainer } from "react-toastify";
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
@@ -24,6 +25,7 @@ export namespace App {
 
   export interface State {
     categories: string[];
+    width: number;
   }
 }
 
@@ -45,12 +47,27 @@ export class App extends React.Component<App.Props, State> {
     mobileBreakpoint: 768
   };
 
-  constructor(props: App.Props, context?: any) {
+  public constructor(props: App.Props, context?: any) {
     super(props, context);
-    this.state = { categories: [] };
+    this.state = {
+      categories: [],
+      width: window.innerWidth
+    };
   }
 
-  componentDidMount() {
+  public componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  private handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
+
+  public componentDidMount() {
     this.categories$.pipe(
       pluck('data', 'query', 'categorymembers'),
     ).subscribe(
@@ -63,25 +80,27 @@ export class App extends React.Component<App.Props, State> {
     );
   }
 
-  render() {
+  public render() {
     const { insurances, actions, mobileBreakpoint } = this.props;
+    const isMobile = this.state.width < mobileBreakpoint;
 
     return (
       <div>
         <div className={classNames(style.normal, style.header)}>
           <h2>Overview</h2>
-          <Overview insurances={insurances}/>
+          <Overview isMobile={isMobile} insurances={insurances}/>
         </div>
-        {this.state && this.state.categories &&
+        {this.state && this.state.categories.length &&
         <div className={style.normal}>
           <h2>Add Insurance</h2>
-          <InsuranceAdder mobileBreakpoint={mobileBreakpoint} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
+          <InsuranceAdder isMobile={isMobile} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
         </div>
         }
         <div className={style.normal}>
           <h2>My Insurances</h2>
           <InsuranceList insurances={insurances} actions={actions}/>
         </div>
+        <ToastContainer className={style.toastError}/>
       </div>
     );
   }
