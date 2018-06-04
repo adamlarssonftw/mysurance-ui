@@ -9,3 +9,9 @@ export function omit<T extends object, K extends keyof T>(target: T, ...omitKeys
     {} as Omit<T, K>
   );
 }
+
+export function sumProperty(list: any[], propKey: string): number {
+  return list
+    .map((item) => item[propKey])
+    .reduce((sum: number, prop: number) => sum + prop, 0);
+}

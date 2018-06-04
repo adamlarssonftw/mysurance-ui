@@ -6,6 +6,7 @@ export namespace Dropdown {
   export interface Props {
     list: string[];
     onSave: (text: any) => void;
+    title: string;
   }
 
   export interface State {
@@ -26,17 +27,20 @@ export class Dropdown extends React.Component<Dropdown.Props, Dropdown.State> {
   }
 
   public render() {
-    const classes = classNames(styleCommon.cell);
+    const classes = classNames(styleCommon.new, styleCommon.select);
 
     return (
-      <select
-        className={classes}
-        value={this.props.list[this.state.index]}
-        onChange={this.handleChange}>
-        {this.props.list.map((item, i) => (
-          <option key={i}>{item}</option>
-        ))}
-      </select>
+      <div className={styleCommon.inputContainer}>
+        <p>{this.props.title}</p>
+        <select
+          className={classes}
+          value={this.props.list[this.state.index]}
+          onChange={this.handleChange}>
+          {this.props.list.map((item, i) => (
+            <option key={i}>{item}</option>
+          ))}
+        </select>
+      </div>
     );
   }
 }

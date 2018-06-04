@@ -84,3 +84,16 @@ input[type='checkbox'] {
 .header {
   margin-top: 64px;
 }
+
+.toastError {
+}
+
+.toastError div {
+  background: red;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: inherit;
+  box-shadow: unset;
+  padding: 8px;
+}
