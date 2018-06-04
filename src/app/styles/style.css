@@ -2,8 +2,16 @@
   justify-content: space-between;
 }
 
+.mobileRow {
+  flex-direction: column;
+}
+
 .row, .cell {
   flex: 1;
+}
+
+.cell {
+  padding: 8px;
 }
 
 .flex, .row {
@@ -35,15 +43,6 @@
   margin: 0;
   padding: 0;
   font-size: 16px;
-}
-
-.add {
-  margin-left: 8px;
-  background-color: #ffeb3b;
-  box-shadow: 1px 1px 2px 0px rgb(189, 189, 189);
-  font-size: 16px;
-  font-weight: bold;
-  color: #004ba0;
 }
 
 .centered {
