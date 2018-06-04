@@ -53,6 +53,7 @@
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -60,6 +61,7 @@
     "react-router": "^4.2.0",
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2",
-    "redux-actions": "^2.2.1"
+    "redux-actions": "^2.2.1",
+    "rxjs": "^5.5.6"
   }
 }
