@@ -13,11 +13,13 @@ import { omit } from 'app/utils';
 import { InsuranceAdder, InsuranceList } from 'app/components';
 import { pluck } from "rxjs/operators";
 import State = App.State;
+import { Overview } from "app/components/overview";
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
     insurances: IInsurance[];
     actions: InsuranceActions;
+    mobileBreakpoint: number;
   }
 
   export interface State {
@@ -39,7 +41,8 @@ export class App extends React.Component<App.Props, State> {
   private categories$ = fromPromise(axios.get(this.categoryURL));
 
   static defaultProps: Partial<App.Props> = {
-    insurances: []
+    insurances: [],
+    mobileBreakpoint: 768
   };
 
   constructor(props: App.Props, context?: any) {
@@ -61,19 +64,24 @@ export class App extends React.Component<App.Props, State> {
   }
 
   render() {
-    const { insurances, actions } = this.props;
+    const { insurances, actions, mobileBreakpoint } = this.props;
 
     return (
       <div>
-        <div className={style.normal}>
-          <InsuranceList insurances={insurances} actions={actions}/>
+        <div className={classNames(style.normal, style.header)}>
+          <h2>Overview</h2>
+          <Overview insurances={insurances}/>
         </div>
         {this.state && this.state.categories &&
-        <div className={classNames(style.normal, style.footer)}>
+        <div className={style.normal}>
           <h2>Add Insurance</h2>
-          <InsuranceAdder categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
+          <InsuranceAdder mobileBreakpoint={mobileBreakpoint} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
         </div>
         }
+        <div className={style.normal}>
+          <h2>My Insurances</h2>
+          <InsuranceList insurances={insurances} actions={actions}/>
+        </div>
       </div>
     );
   }
