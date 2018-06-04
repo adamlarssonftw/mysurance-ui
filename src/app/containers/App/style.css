@@ -6,7 +6,6 @@ body {
   padding: 0;
 }
 
-
 h1 {
   position: fixed;
   top: 10px;
@@ -15,8 +14,13 @@ h1 {
   text-align: left;
 }
 
-h1, h2, h3, h4, h5, p, input {
+h1, h2, h3, h4, h5, p, input, select {
   color: #004ba0;
+}
+
+h2 {
+  padding: 8px;
+  margin: 0;
 }
 
 button {
@@ -54,7 +58,7 @@ input[type='checkbox'] {
 
 .normal {
   background: #fff;
-  margin: 200px 0 40px 0;
+  margin: 32px 0 0 0;
   position: relative;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
@@ -75,4 +79,8 @@ input[type='checkbox'] {
   font-style: italic;
   font-weight: 300;
   color: #e6e6e6;
+}
+
+.header {
+  margin-top: 64px;
 }

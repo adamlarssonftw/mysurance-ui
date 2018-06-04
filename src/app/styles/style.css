@@ -1,15 +1,50 @@
 .row {
-  padding: 8px;
-  display: flex;
   justify-content: space-between;
 }
 
-.row, .flex {
+.mobileRow {
+  flex-direction: column;
+}
+
+.row, .cell {
   flex: 1;
 }
 
-.add {
-  margin: 8px;
-  background-color: #ffeb3b;
-  box-shadow: 1px 1px 2px 0px rgb(189, 189, 189);
+.cell {
+  padding: 8px;
+}
+
+.flex, .row {
+  display: flex;
+}
+
+.row, .container {
+  padding: 8px;
+}
+
+.captions {
+  border-bottom: 1px solid #ededed;
+}
+
+.row h3 {
+  margin: 0;
+}
+
+.adder .row select, input {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.row h3, .row p {
+  padding: 8px 0;
+}
+
+.row p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+.centered {
+  text-align: center;
 }
