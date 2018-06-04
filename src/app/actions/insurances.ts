@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { IInsurance } from 'app/interfaces';
+import {IInsurance, INewInsurance} from 'app/interfaces';
 
 export namespace InsuranceActions {
   export enum Type {
@@ -8,7 +8,7 @@ export namespace InsuranceActions {
     DELETE_INSURANCE = 'DELETE_INSURANCE',
   }
 
-  export const addINSURANCE = createAction<PartialPick<IInsurance, 'id'>>(Type.ADD_INSURANCE);
+  export const addINSURANCE = createAction<INewInsurance>(Type.ADD_INSURANCE);
   export const editINSURANCE = createAction<PartialPick<IInsurance, 'id'>>(Type.EDIT_INSURANCE);
   export const deleteINSURANCE = createAction<IInsurance['id']>(Type.DELETE_INSURANCE);
 }
