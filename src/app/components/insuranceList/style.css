@@ -2,12 +2,15 @@
   position: relative;
   z-index: 2;
   border-top: 1px solid #e6e6e6;
+  padding: 8px;
 }
 
 .normal {
-  margin: 8px;
+  margin: 0;
   padding: 0;
   list-style: none;
+  overflow-y: scroll;
+  max-height: 615px;
 }
 
 .normal .li {
