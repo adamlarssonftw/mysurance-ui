@@ -3,40 +3,41 @@ import * as classNames from 'classnames';
 import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as styleCommon from '../../styles/style.css';
-import { ValidationError } from "app/interfaces";
+import { IValidatedField } from "app/interfaces";
 
 export namespace TextInput {
   export interface Props {
-    text?: string | string;
-    title?: string;
-    editing?: boolean;
+    state: IValidatedField,
+    title: string;
     onSave: (text: any) => void;
-    validator: (value: any) => ValidationError;
-  }
-
-  export interface State {
-    text: string;
-    valid: boolean;
-    errors: ValidationError;
   }
 }
 
-export class TextInput extends React.Component<TextInput.Props, TextInput.State> {
+function ErrorMsg(props) {
+  const { errors } = props;
+
+  if (!!errors && errors.length) {
+    return (<p className={styleCommon.invalid}>{errors[0] ? errors[0].error : ''}</p>);
+  }
+  else {
+    return null;
+  }
+};
+
+export class TextInput extends React.Component<TextInput.Props> {
   constructor(props: TextInput.Props, context?: any) {
     super(props, context);
-    this.state = { text: this.props.text || '', valid: true, errors: null };
     this.handleChange = this.handleChange.bind(this);
   }
 
   public handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const errors = this.props.validator(event.target.value);
-    this.setState({ text: event.target.value, errors: errors, valid: !errors });
     this.props.onSave(event.target.value);
   }
 
   public render() {
+    const { valid, errors, touched, value } = this.props.state;
     const validationStyling = boundClassNames.bind(styleCommon)(
-      { 'input--invalid': !this.state.valid }
+      { 'input--invalid': !valid && touched }
     );
 
     const classes = classNames(style.new, styleCommon.cell, validationStyling);
@@ -50,13 +51,11 @@ export class TextInput extends React.Component<TextInput.Props, TextInput.State>
             type="text"
             autoFocus
             placeholder={this.props.title}
-            value={this.state.text}
-            onInput={this.handleChange}
+            value={value || ''}
+            onChange={this.handleChange}
           />
         </div>
-        { this.state.errors &&
-          <p className={styleCommon.invalid}>{this.state.errors.error}</p>
-        }
+        <ErrorMsg errors={errors}></ErrorMsg>
       </div>
     );
   }

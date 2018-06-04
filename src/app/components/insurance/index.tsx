@@ -26,7 +26,6 @@ export class Insurance extends React.Component<Insurance.Props> {
     const { insurance } = this.props;
     return <li className={style.normal}>
       <div className={styleCommon.row}>
-        <p className={styleCommon.cell}>{insurance.id}</p>
         <p className={styleCommon.cell}>{insurance.category}</p>
         <p className={styleCommon.cell}>{insurance.title}</p>
         <p className={styleCommon.cell}>{insurance.premium}</p>

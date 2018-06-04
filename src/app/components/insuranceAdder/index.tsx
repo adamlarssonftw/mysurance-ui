@@ -6,8 +6,9 @@ import * as style from './style.css';
 import * as boundClassNames from 'classnames/bind';
 import * as classNames from 'classnames';
 import { Dropdown } from "app/components/dropdown";
-import { ValidationError } from "app/interfaces";
+import { IValidatedField } from "app/interfaces";
 import { toast } from "react-toastify";
+import { Validators } from "app/components/insuranceAdder/validators/validators";
 
 export namespace InsuranceAdder {
   export interface Props {
@@ -17,61 +18,103 @@ export namespace InsuranceAdder {
   }
 
   export interface State {
-    title: string;
-    premium: any;
+    title: IValidatedField,
+    premium: IValidatedField
     category: string;
   }
 }
 
 export class InsuranceAdder extends React.Component<InsuranceAdder.Props, InsuranceAdder.State> {
-  private validators = {
-    required: (value: string) => !!value ? null : { error: 'This field is required' },
-    numeric: (value: string) => Number.parseFloat(value) ? null : { error: 'This field should only contain valid numbers' },
-  };
-
-  private validationMap: { [key: string]: (value: string) => ValidationError } = {
-    title: this.validators.required,
-    premium: this.validators.required && this.validators.numeric
+  private fieldsToValidate = ['title', 'premium'];
+  private initialState = {
+    title: {
+      ...this.initialFieldState(''),
+      validators: [Validators.required],
+    },
+    premium: {
+      ...this.initialFieldState(''),
+      validators: [Validators.required, Validators.numeric],
+    },
+    category: this.props.categories[0],
   };
 
   public constructor(props: InsuranceAdder.Props, context?: any) {
     super(props, context);
-    this.state = {
-      title: '',
-      premium: null,
-      category: props.categories[0],
-    };
-
     this.handleSave = this.handleSave.bind(this);
+    this.state = this.initialState;
   }
 
-  public handleSave(e: any) {
+  public handleSave(e: any): void {
     e.preventDefault();
-    const errors = this.getErrorsInState();
-    if (errors.length) {
-      this.popToast(errors);
+    const allInputErrors = this.getAllValidationErrors();
+    const allInputsValid = this.checkInputsProperty('valid');
+    const allInputsTouched = this.checkInputsProperty('touched');
+
+    if (!!allInputErrors.length) {
+      this.popToast(allInputErrors[0].error);
     }
-    else {
-      this.props.addInsurance(this.state);
+    else if (allInputsValid && allInputsTouched) {
+      const { title, premium, category } = this.state;
+      this.setInitialState();
+
+      this.props.addInsurance({
+        title: title.value,
+        premium: Number.parseFloat(premium.value),
+        category
+      });
+    }
+    else if (!allInputsTouched) {
+      this.fieldsToValidate.forEach((key: string) => this.handleChange(this.state[key].value, key));
     }
   }
 
-  private popToast(errors: ValidationError[]){
-    const allErrors = errors.reduce((acc, e) => [...acc, e.error], []).join(', ');
-    toast.error(allErrors, {
+  private checkInputsProperty = (prop: string): boolean =>
+    this.fieldsToValidate.every((key) => this.state[key][prop]);
+
+  private getAllValidationErrors = (): any[] =>
+    this.fieldsToValidate.reduce((acc, key) =>
+        this.state[key].errors ?
+          [...acc, ...this.state[key].errors] :
+          acc
+      , []);
+
+  private initialFieldState(value): IValidatedField {
+    return {
+      valid: false,
+      touched: false,
+      errors: [],
+      value,
+      validators: []
+    };
+  };
+
+  private setInitialState() {
+    this.setState(this.initialState);
+  }
+
+  private popToast(errors: string): void {
+    toast.error(errors, {
       position: toast.POSITION.BOTTOM_CENTER,
       hideProgressBar: true,
     });
   }
 
-  private getErrorsInState(): any {
-    const errors: ValidationError[] =
-      ['title', 'premium'].reduce((acc: ValidationError[], key: string) => {
-          const e = this.validationMap[key](this.state[key]);
-          return !!e ? [...acc, e] : acc;
-        }
-        , []);
-    return errors;
+  private handleChange(value: string, key: string) {
+    const errors = this.state[key].validators.map((fn) => fn(value)).filter((val) => !!val);
+    const valid = !errors.length;
+
+    const newState = {
+      [key]: {
+        ...this.state[key],
+        valid,
+        touched: true,
+        errors,
+        value
+      },
+    };
+
+    // @ts-ignore (doesn't like dynamic keys)
+    this.setState(newState);
   }
 
   public render() {
@@ -89,14 +132,14 @@ export class InsuranceAdder extends React.Component<InsuranceAdder.Props, Insura
             title="Category"
           />
           <TextInput
-            validator={this.validators.required}
-            onSave={(title) => this.setState({ title: title })}
+            state={this.state.title}
+            onSave={(title) => this.handleChange(title, 'title')}
             title="Title"
           />
           <TextInput
-            validator={this.validators.required && this.validators.numeric}
-            onSave={(premium) => this.setState({ premium: Number.parseFloat(premium) })}
-            title="Premium"
+            state={this.state.premium}
+            onSave={(premium) => this.handleChange(premium, 'premium')}
+            title="Annual Premium"
           />
           <button className={classNames(styleCommon.cell, style.add)} onClick={this.handleSave}>Add</button>
         </div>

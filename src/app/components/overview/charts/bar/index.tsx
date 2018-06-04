@@ -8,10 +8,22 @@ import { sumProperty } from "app/utils";
 export namespace BarChart {
   export interface Props {
     insurances: IInsurance[];
+    colors: string[];
   }
 }
 
 export class BarChart extends React.Component<BarChart.Props> {
+  private chartOptions = {
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  };
 
   constructor(props: BarChart.Props, context?: any) {
     super(props, context);
@@ -27,7 +39,11 @@ export class BarChart extends React.Component<BarChart.Props> {
     });
   };
 
-  render() {
+  public shouldComponentUpdate(nextProps: BarChart.Props) {
+    return nextProps.insurances.length !== this.props.insurances.length;
+  }
+
+  public render() {
     const insurances = this.props.insurances;
     const uniqueCategories = this.getUnique(insurances, 'category');
     const summedPremiumsByCategory = this.sumCategoryPremiums(insurances, uniqueCategories);
@@ -37,7 +53,7 @@ export class BarChart extends React.Component<BarChart.Props> {
         datasets: [
           {
             label: 'My Insurances',
-            backgroundColor: ['#1976d2', '#ffeb3b', '#004ba0', '#c8b900', '#63a4ff', '#ffff72'],
+            backgroundColor: this.props.colors,
             data: summedPremiumsByCategory
           },
           {
@@ -47,15 +63,7 @@ export class BarChart extends React.Component<BarChart.Props> {
           },
         ],
       },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
+      ...this.chartOptions
     };
 
     return (

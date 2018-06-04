@@ -14,31 +14,15 @@ export namespace InsuranceList {
 }
 
 export class InsuranceList extends React.Component<InsuranceList.Props> {
-  private captions = ['Id', 'Category', 'Title', 'Premium'];
+  private captions = ['Category', 'Title', 'Annual Premium'];
 
-  private renderTableCaptions(insurances: any[]): JSX.Element {
-    if (insurances.length) {
-      return (
-        <div className={classNames(styleCommon.row, styleCommon.captions)}>
-          {this.captions.map((caption: string, i) => (<h3 className={styleCommon.cell} key={i}>{caption}</h3>))}
-        </div>
-      );
-    }
-    else {
-      return (
-        <div className={styleCommon.container}>
-          <h3 className={styleCommon.centered}>Uh Oh! You're not really uninsured, are you?</h3>
-          <h4 className={styleCommon.centered}>Use the menu below to add any insurances that you might have.</h4>
-        </div>
-      );
-    }
-  }
-
-  render() {
+  public render() {
     const { insurances, actions } = this.props;
     return (
       <section className={style.main}>
-        {this.renderTableCaptions(insurances)}
+        <div className={classNames(styleCommon.row, styleCommon.captions)}>
+          {this.captions.map((caption: string, i) => (<h3 className={styleCommon.cell} key={i}>{caption}</h3>))}
+        </div>
         <ul className={style.normal}>
           {insurances.map((insurance) => (
             <Insurance

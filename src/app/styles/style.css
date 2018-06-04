@@ -24,6 +24,7 @@
 
 .captions {
   border-bottom: 1px solid #ededed;
+  padding-right: 48px;
 }
 
 .row h3 {
@@ -67,6 +68,7 @@
 }
 
 .inputContainer select {
+  border: 1px solid;
   padding: 8px;
   width: 100%;
 }
