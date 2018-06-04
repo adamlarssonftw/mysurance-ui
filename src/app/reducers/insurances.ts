@@ -1,33 +1,20 @@
 import { handleActions } from 'redux-actions';
 import { RootState } from './state';
 import { InsuranceActions } from 'app/actions/insurances';
-import { InsuranceModel } from 'app/models';
+import { IInsurance } from 'app/interfaces';
 
-const initialState: InsuranceModel[] = [{
-  id: 1,
-  title: 'initial store value',
-  category: '',
-  premium: 1
-}];
+const initialState: IInsurance[] = [];
 
-export const insuranceReducer = handleActions<RootState.InsurancesState, InsuranceModel>(
-{
-  [InsuranceActions.Type.ADD_INSURANCE]: (state, action) => {
-    if (action.payload) {
+export const insuranceReducer = handleActions<RootState.InsurancesState, IInsurance>({
+    [InsuranceActions.Type.ADD_INSURANCE]: (state: IInsurance[], action) => {
       return [
-      ...state,
-      {
-        id: state.reduce((max, insurance) => Math.max(insurance.id || 1, max), 0) + 1,
-        ...action.payload,
-        category: '',
-        premium: 1
-      }
+        ...state,
+        {
+          ...action.payload,
+          id: state.length,
+        } as IInsurance
       ];
-    }
-    else {
-      return state;
-    }
-  },
+    },
     [InsuranceActions.Type.DELETE_INSURANCE]: (state, action) => {
       return state.filter((insurance) => insurance.id !== (action.payload as any));
     },
@@ -42,6 +29,6 @@ export const insuranceReducer = handleActions<RootState.InsurancesState, Insuran
         }
       });
     },
-},
-initialState
+  },
+  initialState
 );
