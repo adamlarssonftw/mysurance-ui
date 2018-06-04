@@ -14,6 +14,7 @@ import { InsuranceAdder, InsuranceList } from 'app/components';
 import { pluck } from "rxjs/operators";
 import State = App.State;
 import { Overview } from "app/components/overview";
+import { ToastContainer } from "react-toastify";
 
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
@@ -46,7 +47,7 @@ export class App extends React.Component<App.Props, State> {
     mobileBreakpoint: 768
   };
 
-  constructor(props: App.Props, context?: any) {
+  public constructor(props: App.Props, context?: any) {
     super(props, context);
     this.state = {
       categories: [],
@@ -79,7 +80,7 @@ export class App extends React.Component<App.Props, State> {
     );
   }
 
-  render() {
+  public render() {
     const { insurances, actions, mobileBreakpoint } = this.props;
     const isMobile = this.state.width < mobileBreakpoint;
 
@@ -89,7 +90,7 @@ export class App extends React.Component<App.Props, State> {
           <h2>Overview</h2>
           <Overview isMobile={isMobile} insurances={insurances}/>
         </div>
-        {this.state && this.state.categories &&
+        {this.state && this.state.categories.length &&
         <div className={style.normal}>
           <h2>Add Insurance</h2>
           <InsuranceAdder isMobile={isMobile} categories={this.state.categories} addInsurance={actions.addINSURANCE}/>
@@ -99,6 +100,7 @@ export class App extends React.Component<App.Props, State> {
           <h2>My Insurances</h2>
           <InsuranceList insurances={insurances} actions={actions}/>
         </div>
+        <ToastContainer className={style.toastError}/>
       </div>
     );
   }
