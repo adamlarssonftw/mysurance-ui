@@ -1,6 +1,21 @@
 .row {
-  display: flex;
   justify-content: space-between;
+}
+
+.mobileRow {
+  flex-direction: column;
+}
+
+.row, .cell {
+  flex: 1;
+}
+
+.cell {
+  padding: 8px;
+}
+
+.flex, .row {
+  display: flex;
 }
 
 .row, .container {
@@ -15,6 +30,11 @@
   margin: 0;
 }
 
+.adder .row select, input {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .row h3, .row p {
   padding: 8px 0;
 }
@@ -23,16 +43,6 @@
   margin: 0;
   padding: 0;
   font-size: 16px;
-}
-
-.row, .flex {
-  flex: 1;
-}
-
-.add {
-  margin: 8px;
-  background-color: #ffeb3b;
-  box-shadow: 1px 1px 2px 0px rgb(189, 189, 189);
 }
 
 .centered {

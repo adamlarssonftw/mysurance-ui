@@ -14,7 +14,7 @@ h1 {
   text-align: left;
 }
 
-h1, h2, h3, h4, h5, p, input {
+h1, h2, h3, h4, h5, p, input, select {
   color: #004ba0;
 }
 
@@ -58,7 +58,7 @@ input[type='checkbox'] {
 
 .normal {
   background: #fff;
-  margin: 96px 0 40px 0;
+  margin: 32px 0 0 0;
   position: relative;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
@@ -81,9 +81,6 @@ input[type='checkbox'] {
   color: #e6e6e6;
 }
 
-.footer {
-  position: absolute;
-  bottom: 64px;
-  margin: 0 auto;
-  width: 90%;
+.header {
+  margin-top: 64px;
 }

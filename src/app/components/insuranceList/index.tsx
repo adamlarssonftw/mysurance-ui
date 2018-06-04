@@ -14,13 +14,13 @@ export namespace InsuranceList {
 }
 
 export class InsuranceList extends React.Component<InsuranceList.Props> {
-  private captions = ['Id', 'Title', 'Premium'];
+  private captions = ['Id', 'Category', 'Title', 'Premium'];
 
   private renderTableCaptions(insurances: any[]): JSX.Element {
     if (insurances.length) {
       return (
         <div className={classNames(styleCommon.row, styleCommon.captions)}>
-          {this.captions.map((caption: string, i) => (<h3 className={styleCommon.flex} key={i}>{caption}</h3>))}
+          {this.captions.map((caption: string, i) => (<h3 className={styleCommon.cell} key={i}>{caption}</h3>))}
         </div>
       );
     }

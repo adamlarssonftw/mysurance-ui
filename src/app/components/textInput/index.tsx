@@ -29,17 +29,19 @@ export class TextInput extends React.Component<TextInput.Props, TextInput.State>
   }
 
   render() {
-    const classes = classNames(style.new, styleCommon.flex);
+    const classes = classNames(style.new, styleCommon.cell);
 
     return (
-      <input
-        className={classes}
-        type="text"
-        autoFocus
-        placeholder={this.props.placeholder}
-        value={this.state.text}
-        onChange={this.handleChange}
-      />
+      <div className={style.inputContainer}>
+        <input
+          className={classes}
+          type="text"
+          autoFocus
+          placeholder={this.props.placeholder}
+          value={this.state.text}
+          onChange={this.handleChange}
+        />
+      </div>
     );
   }
 }
